@@ -11,6 +11,7 @@ character fields.
 | Field | Draft |
 | --- | --- |
 | Project name | **Votex AI** |
+| Team name | **Cyber Defenders** |
 | Tagline | Securing elections through intelligent cybersecurity |
 | Track | **Track 4 — Electoral Cybersecurity & Resilience** |
 | Repository | https://github.com/Ibrahim-15217/votex-ai |
@@ -20,14 +21,19 @@ character fields.
 
 ## Team (2–4 members required)
 
+**Team name:** Cyber Defenders
+
+**Team description (form-ready):**
+
+> Cyber Defenders is a three-person, multidisciplinary team building defensive technology for Nigerian elections. We combine cybersecurity and incident-response thinking, backend engineering and applied machine learning, and inclusive frontend design. Together we built Votex AI end to end: secure intake, explainable phishing analysis, tenant-scoped correlation, privacy-preserving national aggregates and a tamper-evident audit trail. We work evidence-first — every claim is backed by a test, screenshot or reproducible command — and we are committed to nonpartisan, human-supervised, NDPA-aligned use of AI.
+
 | # | Name | Role | Email | Affiliation |
 | --- | --- | --- | --- | --- |
-| 1 | `[NAME]` | Product lead / demo | `[EMAIL]` | `[ORG / UNIVERSITY]` |
-| 2 | `[NAME]` | Backend and security | `[EMAIL]` | `[ORG / UNIVERSITY]` |
-| 3 | `[NAME]` | Frontend and inclusion | `[EMAIL]` | `[ORG / UNIVERSITY]` |
-| 4 | `[NAME — optional]` | AI / evaluation | `[EMAIL]` | `[ORG / UNIVERSITY]` |
+| 1 | `[NAME]` | Team lead · product, problem framing and demo | `[EMAIL]` | `[ORG / UNIVERSITY]` |
+| 2 | `[NAME]` | Cybersecurity · backend, auth, privacy and audit | `[EMAIL]` | `[ORG / UNIVERSITY]` |
+| 3 | `[NAME]` | Engineering · AI, frontend and accessibility | `[EMAIL]` | `[ORG / UNIVERSITY]` |
 
-> Remove row 4 if the team has three members. The rules allow 2–4.
+> Three members, within the 2–4 rule.
 
 ---
 
