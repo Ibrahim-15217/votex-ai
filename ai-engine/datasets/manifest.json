@@ -1,0 +1,53 @@
+{
+  "dataset": "electoral_phishing_synthetic",
+  "version": "0.1.0",
+  "description": "Template-generated electoral phishing and benign communications. Synthetic only; no real messages, people or voter records.",
+  "generated_at": "2026-11-09T12:19:55.725796+00:00",
+  "generator": "ai-engine/training/generate_data.py",
+  "seed": 20261109,
+  "rows": 1400,
+  "labels": {
+    "phishing": 700,
+    "benign": 700
+  },
+  "languages": {
+    "en": 1190,
+    "ha": 210
+  },
+  "categories": {
+    "0:media_release": 116,
+    "0:observer_coordination": 105,
+    "0:official_notice": 92,
+    "0:public_awareness": 86,
+    "0:result_verification_guidance": 95,
+    "0:security_advisory": 96,
+    "0:training_invitation": 110,
+    "1:credential_harvest": 97,
+    "1:fake_accreditation": 102,
+    "1:fake_portal": 113,
+    "1:fake_result": 93,
+    "1:impersonation": 110,
+    "1:malware_attachment": 84,
+    "1:payment_fraud": 101
+  },
+  "channels": {
+    "email": 356,
+    "sms": 356,
+    "web_form": 349,
+    "whatsapp": 339
+  },
+  "files": [
+    {
+      "path": "electoral_phishing_synthetic.csv",
+      "bytes": 349549,
+      "sha256": "7c7c05e3cef528de184760fe8cafcce01a6818d78578919cf92cc2dbc94603a0"
+    }
+  ],
+  "suspicious_link_policy": "Suspicious URLs use reserved .example domains and RFC 5737 documentation addresses only. Benign URLs reference public institutional home pages as illustrative context and are never contacted by the generator.",
+  "known_limitations": [
+    "Template-generated text is less varied than real reports.",
+    "Hausa coverage is limited and requires native-speaker review.",
+    "Label noise is deliberately low; real reports are noisier.",
+    "The dataset tests triage logic, not actor attribution."
+  ]
+}

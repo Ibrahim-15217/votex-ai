@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply bg-void text-text antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Sticky console header is ~57px tall; keep focused targets clear of it. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply min-h-screen bg-void font-sans;
+  }
+
+  ::selection {
+    background: rgba(34, 211, 238, 0.28);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(28, 44, 70, 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(28, 44, 70, 0.55) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+  }
+
+  .glass-panel {
+    background:
+      linear-gradient(180deg, rgba(16, 28, 48, 0.92) 0%, rgba(10, 18, 32, 0.96) 100%);
+    backdrop-filter: blur(18px);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hairline {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(34, 211, 238, 0.5),
+      rgba(167, 139, 250, 0.35),
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/**
+ * Low-bandwidth mode. When a user asks the operating system to save data we
+ * drop the decorative grid, blur, glow and entry animations so the interface is
+ * text-first and cheap to paint on a slow Nigerian mobile connection.
+ */
+@media (prefers-reduced-data: reduce) {
+  .bg-grid {
+    background-image: none;
+  }
+
+  .glass-panel {
+    background: #0a1220;
+    backdrop-filter: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    backdrop-filter: none !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+
+  [class*="blur-3xl"] {
+    display: none;
+  }
+}
+

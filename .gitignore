@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data
+*.db
+*.sqlite3
+storage/
+backend/storage/
+backend/votex.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+
+# Editors
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated / temporary
+*.log
+tmp/
+
+# Reproducible AI artefacts are committed on purpose so a fresh clone can run
+# the demo without retraining. Regenerate them with:
+#   python ai-engine/training/generate_data.py
+#   python ai-engine/training/train_model.py
+# ai-engine/datasets/electoral_phishing_synthetic.csv
+# ai-engine/datasets/manifest.json
+# ai-engine/models/phishing_model.joblib
+# ai-engine/models/metrics.json
+
+# Confidential programme material (never publish)
+Concept_Doc_*.pdf
+INEC_ICT_Director_Remarks_*.pdf

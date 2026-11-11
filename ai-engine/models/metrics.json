@@ -1,0 +1,420 @@
+{
+  "model_name": "Votex Hybrid Electoral Phishing Analyser",
+  "model_version": "hybrid-v0.2.0",
+  "trained_at": "2026-11-11T12:21:44.227373+00:00",
+  "seed": 20261109,
+  "threshold": 0.5,
+  "dataset": {
+    "path": "ai-engine/datasets/electoral_phishing_synthetic.csv",
+    "sha256": "7c7c05e3cef528de184760fe8cafcce01a6818d78578919cf92cc2dbc94603a0",
+    "rows": 1400,
+    "manifest_version": "0.1.0",
+    "manifest_sha256": "7c7c05e3cef528de184760fe8cafcce01a6818d78578919cf92cc2dbc94603a0"
+  },
+  "split": {
+    "train_rows": 1050,
+    "test_rows": 350,
+    "test_size": 0.25,
+    "stratified": true
+  },
+  "features": {
+    "word_ngrams": "1-2",
+    "char_ngrams": "3-5 (char_wb)",
+    "word_vocabulary": 3002,
+    "char_vocabulary": 6868,
+    "total_features": 9870
+  },
+  "headline": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "brier_score": 0.0006,
+    "true_negatives": 175,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "true_positives": 175,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0
+  },
+  "per_language": {
+    "en": {
+      "count": 294,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "brier_score": 0.0004,
+      "true_negatives": 145,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "true_positives": 149,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ha": {
+      "count": 56,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "brier_score": 0.0013,
+      "true_negatives": 30,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "true_positives": 26,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    }
+  },
+  "per_category": {
+    "0:media_release": {
+      "count": 24,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:observer_coordination": {
+      "count": 26,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:official_notice": {
+      "count": 22,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:public_awareness": {
+      "count": 23,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:result_verification_guidance": {
+      "count": 27,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:security_advisory": {
+      "count": 21,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "0:training_invitation": {
+      "count": 32,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:credential_harvest": {
+      "count": 24,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:fake_accreditation": {
+      "count": 20,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:fake_portal": {
+      "count": 28,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:fake_result": {
+      "count": 29,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:impersonation": {
+      "count": 31,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:malware_attachment": {
+      "count": 22,
+      "accuracy": 1.0,
+      "errors": 0
+    },
+    "1:payment_fraud": {
+      "count": 21,
+      "accuracy": 1.0,
+      "errors": 0
+    }
+  },
+  "hardest_cases": [
+    {
+      "id": "syn-01232",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.068,
+      "margin_from_threshold": 0.432,
+      "language": "ha",
+      "category": "official_notice",
+      "text": "Ya ku abokin aiki, Sanarwa: ofishin National Situation Room zai yi taron daidaitawa na Zamfara a 24 August 2027. Halarta kyauta ne kuma ba a bukatar biya."
+    },
+    {
+      "id": "syn-00235",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.0648,
+      "margin_from_threshold": 0.4352,
+      "language": "ha",
+      "category": "public_awareness",
+      "text": "Ya ku abokin aiki, Sanarwa ga jama'a: karbi katin zabe a ofishin da kuka yi rajista. Karba kyauta ce."
+    },
+    {
+      "id": "syn-01113",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9354,
+      "margin_from_threshold": 0.4354,
+      "language": "ha",
+      "category": "impersonation",
+      "text": "Ya ku abokin aiki, Wannan sako ne daga sashen ICT na Observer Coordination Desk. Muna bukatar kalmar sirrin ku don tabbatar da tsarin Taraba."
+    },
+    {
+      "id": "syn-00607",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9417,
+      "margin_from_threshold": 0.4417,
+      "language": "ha",
+      "category": "malware_attachment",
+      "text": "Gaisuwa ICT Officer, Sabon fom na tattara sakamako yana makale. Kunna macro kuma bude shi kafin 19 March 2027."
+    },
+    {
+      "id": "syn-01360",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9422,
+      "margin_from_threshold": 0.4422,
+      "language": "ha",
+      "category": "malware_attachment",
+      "text": "Kula: ICT Officer Sauke kayan aikin tabbatar da zabe a https://voter-accreditation.example/. Kunna fayil din nan take."
+    },
+    {
+      "id": "syn-00731",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.948,
+      "margin_from_threshold": 0.448,
+      "language": "ha",
+      "category": "impersonation",
+      "text": "Gaisuwa Party Agent, Wannan sako ne daga sashen ICT na State Electoral Office. Muna bukatar kalmar sirrin ku don tabbatar da tsarin Kebbi."
+    },
+    {
+      "id": "syn-01269",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9482,
+      "margin_from_threshold": 0.4482,
+      "language": "ha",
+      "category": "impersonation",
+      "text": "Gaisuwa Observer, Wannan sako ne daga sashen ICT na Local Government Electoral Office. Muna bukatar kalmar sirrin ku don tabbatar da tsarin Akwa Ibom."
+    },
+    {
+      "id": "syn-01255",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9482,
+      "margin_from_threshold": 0.4482,
+      "language": "en",
+      "category": "impersonation",
+      "text": "Hello Registration Officer, This is a message from the Local Government Electoral Office ICT desk. We need your password to verify the Abia collation system before 21 December 2027."
+    },
+    {
+      "id": "syn-01279",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.0506,
+      "margin_from_threshold": 0.4494,
+      "language": "ha",
+      "category": "security_advisory",
+      "text": "Ya ku abokin aiki, Kada ku kunna macro a fayil da ba ku tsammani. A kai rahoton imel ga sashen tsaro."
+    },
+    {
+      "id": "syn-00781",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.9494,
+      "margin_from_threshold": 0.4494,
+      "language": "ha",
+      "category": "impersonation",
+      "text": "Gaisuwa Ward Collation Officer, Wannan sako ne daga sashen ICT na Demo Electoral Commission. Muna bukatar kalmar sirrin ku don tabbatar da tsarin Anambra."
+    }
+  ],
+  "cross_validation": {
+    "folds": 5,
+    "metric": "f1",
+    "mean": 1.0,
+    "std": 0.0,
+    "scores": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "challenge": {
+    "available": true,
+    "path": "ai-engine/evaluation/challenge_cases.jsonl",
+    "threshold": 0.5,
+    "headline": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "brier_score": 0.0265,
+      "true_negatives": 14,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "true_positives": 14,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "per_language": {
+      "en": {
+        "count": 25,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0,
+        "brier_score": 0.026,
+        "true_negatives": 13,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_positives": 12,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.0
+      },
+      "ha": {
+        "count": 3,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0,
+        "brier_score": 0.0301,
+        "true_negatives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_positives": 2,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.0
+      }
+    },
+    "hardest_cases": [
+      {
+        "id": "ch-024",
+        "label": "benign",
+        "predicted": "benign",
+        "probability": 0.4407,
+        "margin_from_threshold": 0.0593,
+        "language": "en",
+        "category": "security_advisory",
+        "text": "Your password reset request was received. For your security, no password was changed. Contact the internal ICT help desk if you did not request this."
+      },
+      {
+        "id": "ch-027",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.6303,
+        "margin_from_threshold": 0.1303,
+        "language": "en",
+        "category": "credential_harvest",
+        "text": "Hello colleague, kindly confirm your staff ID and portal password by replying to this message. This is for the annual access review. Do not use the public portal."
+      },
+      {
+        "id": "ch-003",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.7186,
+        "margin_from_threshold": 0.2186,
+        "language": "en",
+        "category": "payment_fraud",
+        "text": "Congratulations! You are entitled to N25,000 election duty allowance. Pay a N2,000 processing fee to account 0123456789 and send the receipt to the coordinator."
+      },
+      {
+        "id": "ch-018",
+        "label": "benign",
+        "predicted": "benign",
+        "probability": 0.2682,
+        "margin_from_threshold": 0.2318,
+        "language": "ha",
+        "category": "public_awareness",
+        "text": "Sanarwa: karbi katin zabe a ofishin da kuka yi rajista. Karba kyauta ce kuma ba a bukatar biya."
+      },
+      {
+        "id": "ch-002",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.8032,
+        "margin_from_threshold": 0.3032,
+        "language": "en",
+        "category": "credential_harvest",
+        "text": "Dear Presiding Officer, the collation portal requires an emergency password reset. Reply with your current password and OTP so the ICT desk can restore your access before 6pm."
+      },
+      {
+        "id": "ch-020",
+        "label": "benign",
+        "predicted": "benign",
+        "probability": 0.1909,
+        "margin_from_threshold": 0.3091,
+        "language": "en",
+        "category": "observer_coordination",
+        "text": "The observers' briefing will start at 8:00am at the National Situation Room. Bring your accreditation badge and a valid ID."
+      },
+      {
+        "id": "ch-016",
+        "label": "benign",
+        "predicted": "benign",
+        "probability": 0.1799,
+        "margin_from_threshold": 0.3201,
+        "language": "en",
+        "category": "result_verification_guidance",
+        "text": "Official notice: results are announced only by the returning officer at the collation centre. Ignore screenshots from unverified social media accounts."
+      },
+      {
+        "id": "ch-009",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.8206,
+        "margin_from_threshold": 0.3206,
+        "language": "en",
+        "category": "payment_fraud",
+        "text": "The commission has shortlisted you for a foreign observation mission. Pay the visa processing fee of N15,000 at https://observer-visa.example/pay today."
+      },
+      {
+        "id": "ch-007",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.8246,
+        "margin_from_threshold": 0.3246,
+        "language": "en",
+        "category": "impersonation",
+        "text": "This is the Chairman's security aide. We are auditing the result server tonight. Send the admin PIN and server address to my private number immediately."
+      },
+      {
+        "id": "ch-006",
+        "label": "phishing",
+        "predicted": "phishing",
+        "probability": 0.8432,
+        "margin_from_threshold": 0.3432,
+        "language": "en",
+        "category": "malware_attachment",
+        "text": "Please open the attached updated voters register.xlsm and click Enable Macros to synchronise your ward data. This is mandatory before collation."
+      }
+    ],
+    "failures": []
+  },
+  "failure_examples": [],
+  "environment": {
+    "python": "3.12.5",
+    "scikit_learn": "1.6.0",
+    "numpy": "2.2.1"
+  }
+}

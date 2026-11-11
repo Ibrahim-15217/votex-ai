@@ -1,0 +1,7 @@
+# Phase 2 training dependencies.
+# Phase 0's dataset generator uses only the Python standard library.
+
+scikit-learn==1.6.0
+joblib==1.4.2
+numpy==2.2.1
+scipy==1.15.0

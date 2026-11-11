@@ -1,0 +1,154 @@
+{
+  "available": true,
+  "path": "ai-engine/evaluation/challenge_cases.jsonl",
+  "threshold": 0.5,
+  "headline": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "brier_score": 0.0265,
+    "true_negatives": 14,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "true_positives": 14,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0
+  },
+  "per_language": {
+    "en": {
+      "count": 25,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "brier_score": 0.026,
+      "true_negatives": 13,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "true_positives": 12,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ha": {
+      "count": 3,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "brier_score": 0.0301,
+      "true_negatives": 1,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "true_positives": 2,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    }
+  },
+  "hardest_cases": [
+    {
+      "id": "ch-024",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.4407,
+      "margin_from_threshold": 0.0593,
+      "language": "en",
+      "category": "security_advisory",
+      "text": "Your password reset request was received. For your security, no password was changed. Contact the internal ICT help desk if you did not request this."
+    },
+    {
+      "id": "ch-027",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.6303,
+      "margin_from_threshold": 0.1303,
+      "language": "en",
+      "category": "credential_harvest",
+      "text": "Hello colleague, kindly confirm your staff ID and portal password by replying to this message. This is for the annual access review. Do not use the public portal."
+    },
+    {
+      "id": "ch-003",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.7186,
+      "margin_from_threshold": 0.2186,
+      "language": "en",
+      "category": "payment_fraud",
+      "text": "Congratulations! You are entitled to N25,000 election duty allowance. Pay a N2,000 processing fee to account 0123456789 and send the receipt to the coordinator."
+    },
+    {
+      "id": "ch-018",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.2682,
+      "margin_from_threshold": 0.2318,
+      "language": "ha",
+      "category": "public_awareness",
+      "text": "Sanarwa: karbi katin zabe a ofishin da kuka yi rajista. Karba kyauta ce kuma ba a bukatar biya."
+    },
+    {
+      "id": "ch-002",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.8032,
+      "margin_from_threshold": 0.3032,
+      "language": "en",
+      "category": "credential_harvest",
+      "text": "Dear Presiding Officer, the collation portal requires an emergency password reset. Reply with your current password and OTP so the ICT desk can restore your access before 6pm."
+    },
+    {
+      "id": "ch-020",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.1909,
+      "margin_from_threshold": 0.3091,
+      "language": "en",
+      "category": "observer_coordination",
+      "text": "The observers' briefing will start at 8:00am at the National Situation Room. Bring your accreditation badge and a valid ID."
+    },
+    {
+      "id": "ch-016",
+      "label": "benign",
+      "predicted": "benign",
+      "probability": 0.1799,
+      "margin_from_threshold": 0.3201,
+      "language": "en",
+      "category": "result_verification_guidance",
+      "text": "Official notice: results are announced only by the returning officer at the collation centre. Ignore screenshots from unverified social media accounts."
+    },
+    {
+      "id": "ch-009",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.8206,
+      "margin_from_threshold": 0.3206,
+      "language": "en",
+      "category": "payment_fraud",
+      "text": "The commission has shortlisted you for a foreign observation mission. Pay the visa processing fee of N15,000 at https://observer-visa.example/pay today."
+    },
+    {
+      "id": "ch-007",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.8246,
+      "margin_from_threshold": 0.3246,
+      "language": "en",
+      "category": "impersonation",
+      "text": "This is the Chairman's security aide. We are auditing the result server tonight. Send the admin PIN and server address to my private number immediately."
+    },
+    {
+      "id": "ch-006",
+      "label": "phishing",
+      "predicted": "phishing",
+      "probability": 0.8432,
+      "margin_from_threshold": 0.3432,
+      "language": "en",
+      "category": "malware_attachment",
+      "text": "Please open the attached updated voters register.xlsm and click Enable Macros to synchronise your ward data. This is mandatory before collation."
+    }
+  ],
+  "failures": []
+}
