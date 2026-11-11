@@ -34,16 +34,24 @@ choose **Team**.
 | Portal field | Answer |
 | --- | --- |
 | Tell us about your experience * | see answer 1 |
-| Primary Area of Expertise * | `Electoral cybersecurity, secure backend engineering and applied machine learning` |
-| Years of Experience * | `[YOU — whole number, 0–80]` |
-| Current Role / Occupation * | `[YOU — e.g. Software Engineer / Student]` |
-| Organisation / Institution * | `[YOU — your employer, university, or "Cyber Defenders (independent team)"]` |
-| Highest level of Education * | `[YOU — e.g. Bachelor's degree]` |
-| Academic / Professional Field * | `[YOU — e.g. Computer Science]` |
+| Primary Area of Expertise * | `Cybersecurity, AI Security, and Secure Software Development` |
+| Years of Experience * | `4` |
+| Current Role / Occupation * | `Cybersecurity Practitioner and Software Developer` |
+| Organisation / Institution * | `Jigawa Digital Network (JDN)` |
+| Highest level of Education * | `Bachelor's degree in Cybersecurity` |
+| Academic / Professional Field * | `Cybersecurity and Software Development` |
 
 **1. Tell us about your experience**
 
-> We are a three-person team that designs and builds defensive software for civic and electoral use. Over the past months we have taken Votex AI from problem framing to a working, tested prototype: a React + TypeScript front end, a Python and FastAPI backend, PostgreSQL with a SQLite fallback, and a hybrid phishing analyser combining URL rules, NLP signals and a TF-IDF + Logistic Regression model. We work evidence-first: 40 backend tests, published model metrics, and browser-tested accessibility. Our combined background covers secure backend engineering, applied machine learning and inclusive interface design, and we document limitations instead of hiding them.
+> I am a cybersecurity professional and software developer with a strong interest in AI security, cloud security, and the application of emerging technologies to real-world challenges.
+>
+> I have practical experience designing and developing security-focused applications, including SentinelShare, a blockchain-based secure file-sharing system with intelligent threat detection. I have also worked on cloud security projects using AWS and Microsoft Azure, alongside web application development and cybersecurity research.
+>
+> My technical experience includes Python, JavaScript, React, FastAPI, PostgreSQL, Linux, AWS, Azure, and machine-learning concepts.
+>
+> Beyond technical development, I am passionate about cybersecurity awareness, digital resilience, and using technology to address challenges within my community.
+>
+> I am particularly interested in applying AI to strengthen cybersecurity, detect emerging threats, and support safer digital systems. Through AI4Elections, I hope to contribute my technical skills, collaborate with other innovators, and develop practical solutions that strengthen electoral cybersecurity and public trust.
 
 ---
 
@@ -56,11 +64,17 @@ choose **Team**.
 
 **2. Skills** (comma after each skill, as the field asks)
 
-> Python, FastAPI, TypeScript, React, scikit-learn, threat detection, incident response, secure API design, PostgreSQL, Docker, WCAG 2.2 accessibility, Hausa/Yorùbá/Igbo localisation, technical documentation
+> Cybersecurity, Software Development, Python Programming, JavaScript, React.js, FastAPI, Machine Learning, Artificial Intelligence, Cloud Security, Blockchain Technology, Linux, Network Security, Database Management, Threat Detection, Secure Application Development, Technical Research, Problem Solving, Team Collaboration
 
 **3. Tell us about your relevant experience**
 
-> We built Votex AI end to end for this challenge. It gives reporters a plain-language intake in four languages, analysts an explainable risk score with reasons and model version, tenant-scoped indicator correlation that links separate reports into one campaign, a k ≥ 5 suppressed national view, and a SHA-256 hash-chain audit trail. We validated it with 40 backend tests covering tenant isolation, evidence validation, audit tampering and k-anonymity suppression, plus browser tests for keyboard-only reporting, four locales and six routes at four screen widths. The repository is public, MIT-licensed and reproducible from a fresh clone.
+> I have practical experience in cybersecurity, software development, cloud technologies and the development of security-focused applications. One of my major projects is SentinelShare, a blockchain-based secure file-sharing system integrated with intelligent threat detection using machine learning. I have also worked on cloud security projects using AWS and Microsoft Azure, including cloud resource configuration, security hardening and access management.
+>
+> I also work with a three-person team on Votex AI, a defensive electoral incident platform built for this challenge. It covers secure intake, explainable phishing analysis, cross-report correlation, privacy-preserving national aggregates and a hash-chain audit trail, and it is validated with 40 backend tests plus browser tests for keyboard-only reporting and four locales.
+>
+> Additionally, I have experience developing web applications, implementing authentication systems, working with databases, and exploring AI applications in cybersecurity. I have also been involved in cybersecurity awareness and digital innovation initiatives.
+>
+> These experiences have strengthened my ability to identify security challenges, develop practical technical solutions and work with emerging technologies. I am particularly interested in applying these skills to electoral cybersecurity, threat intelligence and digital resilience.
 
 ---
 
@@ -73,7 +87,11 @@ choose **Team**.
 
 **4. Why are you interested in this challenge area?**
 
-> Electoral security is a defensive problem where small local signals matter, and where careless design can harm the very people who report them. Track 4 lets us work on the most attacked and least tooled part of the election stack: the human reporting channel. During elections, staff, observers, party agents and voters receive phishing, impersonation and fake-portal messages, but reports sit in separate WhatsApp and email inboxes and are never correlated. We want to build the boring, trustworthy plumbing that turns those reports into timely, explainable defence — without touching live systems, without real voter data, and without putting a reporter at risk.
+> My interest in this area is practical. I want to apply my cybersecurity and software development experience to a public-interest problem where the impact is direct, and electoral cybersecurity is one of the clearest examples.
+>
+> Election-related organisations and authorised stakeholders face growing cybersecurity threats, including phishing attacks, malicious links, impersonation, social engineering and suspicious digital communications. However, identifying, analysing and prioritising these incidents quickly can be challenging, especially when reports come from different sources.
+>
+> Votex AI aims to address this gap by providing an AI-assisted platform that helps authorised stakeholders analyse reported incidents, identify potential threats, assess their risk levels and receive actionable defensive recommendations. The goal is to improve electoral cybersecurity incident response, protect sensitive electoral information and strengthen trust in Nigeria's electoral processes through responsible AI and human oversight.
 
 ---
 
@@ -97,15 +115,23 @@ stage and prototype questions.
 
 **5. What problem are you trying to solve?**
 
-> During elections, phishing, impersonation and fake portals target electoral staff, observers, party agents and voters. Reports arrive by WhatsApp, phone and email, live in separate inboxes, and are never correlated, so one campaign looks like dozens of unrelated complaints. Evidence is easy to alter and hard to authenticate later. National visibility also creates a privacy trap: a pattern can be exposed by identifying the single small organisation that reported it. Today's tools are either awareness material or dashboards with no intake, no explanation and no audit.
+> During an election period, phishing, malicious links, impersonation and social engineering target the people and organisations that run and observe the process. Reports of those incidents arrive through different channels and formats, so each one is handled in isolation. One coordinated campaign can look like dozens of unrelated complaints, analysts lose time re-triaging the same indicators, and evidence is hard to authenticate afterwards.
+>
+> The risk is not only technical. National-level visibility can expose the small organisation or individual whose report revealed a pattern, which discourages reporting. Most existing tools are either awareness material or dashboards with no structured intake, no explanation behind their risk scoring and no audit trail. Votex AI closes that gap by turning scattered reports into explainable, correlated and auditable incident intelligence, with a human in control at every step.
 
 **6. Who is affected by this problem?**
 
-> Electoral commission staff and ad hoc staff, observers and civil-society monitors, party agents, journalists, and ordinary voters — especially first-time and low-connectivity users who are most likely to trust a fake portal. The people harmed twice are the reporters: a badly designed system can expose the small organisation or individual whose report revealed a campaign.
+> The problem affects electoral institutions and their staff, election officials, authorised election observers, civil society organisations, political stakeholders, journalists and citizens who depend on reliable electoral information. These groups may encounter phishing attacks, impersonation, malicious links and other cyber threats that could compromise sensitive information, disrupt operations or undermine public confidence in the electoral process.
 
 **7. Describe your proposed solution**
 
-> Votex AI is a defensive incident platform with one complete workflow: report → analysis → correlation → assignment and response → audit. Reporters submit a suspicious message, link or file with validated evidence and a SHA-256 integrity hash. A hybrid analyser combines URL and domain rules, NLP signals and a TF-IDF + Logistic Regression classifier into a published weighted risk score (R = 0.30U + 0.25N + 0.25M + 0.20I), shown with its reasons and model version. Indicators are extracted offline and correlated inside an organisation, so separate reports become one campaign. Analysts assign cases, record response actions and review a full timeline, and every step is chained into a tamper-evident audit log.
+> Votex AI is an AI-assisted electoral cybersecurity incident triage and resilience platform that helps authorised stakeholders identify, analyse and respond to potential cyber threats targeting the electoral environment.
+>
+> Reporters submit suspicious URLs, phishing messages, impersonation attempts and other incident reports through a plain-language intake, with evidence validated and hashed for integrity. A hybrid analyser combines URL and domain rules, text signals and a TF-IDF + Logistic Regression model to extract indicators, classify the report and assign an explainable risk level, showing the reasons and model version beside the score.
+>
+> The platform includes an incident management dashboard, threat intelligence views, correlation that links separate reports from the same organisation into one campaign, audit logs backed by a tamper-evident hash chain, and a human-review mechanism that lets analysts verify, override and manage AI-generated assessments. National aggregates suppress any cell with fewer than five contributors.
+>
+> Votex AI uses synthetic, anonymised and authorised public data only. It strengthens electoral cybersecurity and incident response without interfering with live electoral infrastructure or replacing human judgement.
 
 **8. How would AI or technology contribute to the solution?**
 
@@ -117,7 +143,7 @@ stage and prototype questions.
 
 **10. What makes your approach different or useful?**
 
-> Most electoral-security entries are awareness content or a dashboard. Votex AI combines four things in one working prototype: explainable triage instead of a black box, cross-report indicator correlation, privacy-preserving national aggregates enforced in the query layer, and a tamper-evident audit chain. Inclusion is treated as an engineering requirement, not a slogan: four complete locales, a tested keyboard-only reporting path, WCAG 2.2 AA measures and a reduced-data mode for low-bandwidth devices. Everything is public, MIT-licensed and reproducible from a fresh clone.
+> Votex AI goes beyond conventional security monitoring by combining explainable AI triage with cross-report correlation, privacy-preserving aggregate reporting and a tamper-evident audit trail. Rather than producing a black-box score, it shows which indicators and weights drove each risk level, so an analyst can verify or override the assessment. Separate reports that share indicators are linked into one campaign, and national views suppress any cell below k = 5 so a pattern never exposes the organisation that reported it. The workflow is reproducible from synthetic data, works on low-bandwidth devices, and keeps human experts in control of every security decision.
 
 ---
 
@@ -140,7 +166,7 @@ fill it: it is how the judges identify the team.
 
 **12. Names and Role of Team Members**
 
-> `[MEMBER 1 NAME] - Team lead, product, problem framing and demo, [MEMBER 1 NAME] - Cybersecurity, backend, auth, privacy and audit, [MEMBER 3 NAME] - Engineering, AI, frontend and accessibility`
+> `[MEMBER 1 NAME] - Team lead, product, problem framing and demo, [MEMBER 2 NAME] - Cybersecurity, backend, auth, privacy and audit, [MEMBER 3 NAME] - Engineering, AI, frontend and accessibility`
 
 Use the real names and keep the comma-after-each-item format. Team size must
 match the number of names: **3**.
