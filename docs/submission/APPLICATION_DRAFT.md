@@ -13,7 +13,7 @@ character fields.
 | Project name | **Votex AI** |
 | Tagline | Securing elections through intelligent cybersecurity |
 | Track | **Track 4 — Electoral Cybersecurity & Resilience** |
-| Repository | `[PUBLIC_REPO_URL]` |
+| Repository | https://github.com/Ibrahim-15217/votex-ai |
 | Demo video | `[VIDEO_URL — due with the prototype]` |
 | Contact person | `[NAME, EMAIL, PHONE]` |
 | Location | `[CITY, STATE, NIGERIA]` |

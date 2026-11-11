@@ -17,7 +17,7 @@ credentials; items marked **Done** are in the repository.
 | Project name and one-line pitch | **Done** | Votex AI — securing elections through intelligent cybersecurity |
 | Problem statement (max one page) | **Done** | [PROBLEM_STATEMENT.md](./PROBLEM_STATEMENT.md) |
 | Methodology summary | **Done** | [METHODOLOGY.md](./METHODOLOGY.md) |
-| Working prototype link | **User** | Public repository URL |
+| Working prototype link | **Done** | https://github.com/Ibrahim-15217/votex-ai |
 | Declarations: nonpartisan, no live systems, synthetic data, human oversight | **User** | Confirm on the form |
 | AI-tool assistance disclosed | **Done** | Section 9 of [METHODOLOGY.md](./METHODOLOGY.md) |
 | Contact person and phone | **User** | Must be reachable after submission |
@@ -32,7 +32,7 @@ Application answer drafts with placeholders: [APPLICATION_DRAFT.md](./APPLICATIO
 | Artifact | Status | Location |
 | --- | --- | --- |
 | Working prototype | **Done** | `backend/`, `frontend/`, `docker-compose.yml` |
-| Public repository with open licence | **Pending** | MIT in [LICENSE](../../LICENSE); repo not yet created |
+| Public repository with open licence | **Done** | https://github.com/Ibrahim-15217/votex-ai — MIT in [LICENSE](../../LICENSE) |
 | Problem statement | **Done** | [PROBLEM_STATEMENT.md](./PROBLEM_STATEMENT.md) |
 | Methodology | **Done** | [METHODOLOGY.md](./METHODOLOGY.md) |
 | Evidence: metrics, screenshots, failure cases | **Done** | [../model/EVALUATION.md](../model/EVALUATION.md), [../demo/screenshots/](../demo/screenshots/) |
