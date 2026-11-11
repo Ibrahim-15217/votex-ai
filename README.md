@@ -215,6 +215,7 @@ Measured keyboard, locale, contrast and responsive evidence:
 | [docs/security/ACCESSIBILITY_AND_LOCALISATION.md](./docs/security/ACCESSIBILITY_AND_LOCALISATION.md) | WCAG 2.2 AA measures, locale coverage and keyboard evidence |
 | [docs/submission/SUBMISSION_CHECKLIST.md](./docs/submission/SUBMISSION_CHECKLIST.md) | Application and prototype submission gates, safety checks, fresh-clone test |
 | [docs/submission/APPLICATION_DRAFT.md](./docs/submission/APPLICATION_DRAFT.md) | Draft application answers and team placeholders |
+| [docs/submission/APPLICATION_FORM_ANSWERS.md](./docs/submission/APPLICATION_FORM_ANSWERS.md) | Field-by-field answers for the live portal form |
 | [docs/submission/PROBLEM_STATEMENT.md](./docs/submission/PROBLEM_STATEMENT.md) | One-page Track 4 problem statement |
 | [docs/submission/METHODOLOGY.md](./docs/submission/METHODOLOGY.md) | Approach, data, evaluation, security, privacy and inclusion |
 | [docs/model/MODEL_CARD.md](./docs/model/MODEL_CARD.md) | Intended use, measured metrics, limitations and failure modes |

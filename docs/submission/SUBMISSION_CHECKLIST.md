@@ -24,6 +24,8 @@ credentials; items marked **Done** are in the repository.
 | Application submitted and receipt saved | **User** | Screenshot the confirmation page/email |
 
 Application answer drafts with placeholders: [APPLICATION_DRAFT.md](./APPLICATION_DRAFT.md).
+Field-by-field, copy-paste answers for the live portal (5 steps):
+[APPLICATION_FORM_ANSWERS.md](./APPLICATION_FORM_ANSWERS.md).
 
 ---
 
