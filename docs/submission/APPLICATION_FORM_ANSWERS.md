@@ -4,8 +4,13 @@ For **https://ai4elections.risenetworks.org/application**.
 Five steps. No character limits are set on the form, but keep every long answer
 under about 1,000 characters so the server-side validator never truncates it.
 
-Answer the fields in the order below. Fields marked `[YOU]` are personal facts
-only you can supply; everything else is copy-paste ready.
+Answer the fields in the order below. The only personal facts still marked
+`[YOU]` are your phone number, state and city; everything else is copy-paste
+ready.
+
+> Check the name split before submitting: the portal has separate First Name and
+> Last Name fields. This file uses **Ibrahim** / **Musa Mahmud**. If you entered
+> them differently, keep the portal consistent with your ID.
 
 > Reminder: this form is the **application**, not the prototype submission. The
 > working prototype is entered in step 3 (`prototype_link`). The prototype is due
@@ -17,13 +22,13 @@ only you can supply; everything else is copy-paste ready.
 
 | Portal field | Answer |
 | --- | --- |
-| First Name | `[YOU — first name]` |
-| Last Name | `[YOU — last name]` |
-| Email Address | `[YOU — reachable email]` |
+| First Name | `Ibrahim` |
+| Last Name | `Musa Mahmud` |
+| Email Address | `ibrahimmusamahmud01@gmail.com` |
 | Phone Number | `[YOU — e.g. +234 80X XXX XXXX]` |
 | Country of Residence | **Nigeria** |
-| State of Residence | `[YOU — e.g. Federal Capital Territory]` |
-| City | `[YOU — e.g. Abuja]` |
+| State of Residence | `[YOU — e.g. Jigawa State]` |
+| City | `[YOU — e.g. Dutse]` |
 | What best describe your application? | **Team** |
 
 `application_type` is the only option that unlocks the team block in step 4, so
@@ -155,7 +160,7 @@ fill it: it is how the judges identify the team.
 | Portal field | Answer |
 | --- | --- |
 | Team Name | `Cyber Defenders` |
-| Team Lead | `[YOU — full name]` |
+| Team Lead | `Ibrahim Musa Mahmud` |
 | Team size | `3` |
 | Team Description | see answer 11 |
 | Names and Role of Team Members ( use (,) after each name and role) | see answer 12 |
@@ -166,7 +171,7 @@ fill it: it is how the judges identify the team.
 
 **12. Names and Role of Team Members**
 
-> `[MEMBER 1 NAME] - Team lead, product, problem framing and demo, [MEMBER 2 NAME] - Cybersecurity, backend, auth, privacy and audit, [MEMBER 3 NAME] - Engineering, AI, frontend and accessibility`
+> `Ibrahim Musa Mahmud - Team Lead (Cybersecurity, AI Engineering, Demo), Muhammad Usman Jada - Software Developer (UI/UX, Frontend and Accessibility), Aminu Ahmad Aliyu - Backend (Auth, Privacy and Audit)`
 
 Use the real names and keep the comma-after-each-item format. Team size must
 match the number of names: **3**.
@@ -196,7 +201,7 @@ All four required boxes must be ticked before **Submit Application** works.
 
 ## Before you press Submit
 
-1. Every `[YOU]` and `[MEMBER …]` placeholder is replaced.
+1. No `[YOU]` placeholder remains — phone, state and city are filled in.
 2. Team size says **3** and the member list has exactly three names.
 3. `prototype_link` is `https://github.com/Ibrahim-15217/votex-ai` and it opens
    in a private browser window (the repo is public).

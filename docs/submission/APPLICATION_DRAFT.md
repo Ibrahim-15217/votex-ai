@@ -16,7 +16,7 @@ character fields.
 | Track | **Track 4 — Electoral Cybersecurity & Resilience** |
 | Repository | https://github.com/Ibrahim-15217/votex-ai |
 | Demo video | `[VIDEO_URL — due with the prototype]` |
-| Contact person | `[NAME, EMAIL, PHONE]` |
+| Contact person | Ibrahim Musa Mahmud · ibrahimmusamahmud01@gmail.com · `[PHONE]` |
 | Location | `[CITY, STATE, NIGERIA]` |
 
 ## Team (2–4 members required)
@@ -29,9 +29,9 @@ character fields.
 
 | # | Name | Role | Email | Affiliation |
 | --- | --- | --- | --- | --- |
-| 1 | `[NAME]` | Team lead · product, problem framing and demo | `[EMAIL]` | `[ORG / UNIVERSITY]` |
-| 2 | `[NAME]` | Cybersecurity · backend, auth, privacy and audit | `[EMAIL]` | `[ORG / UNIVERSITY]` |
-| 3 | `[NAME]` | Engineering · AI, frontend and accessibility | `[EMAIL]` | `[ORG / UNIVERSITY]` |
+| 1 | Ibrahim Musa Mahmud | Team lead · cybersecurity, AI engineering and demo | ibrahimmusamahmud01@gmail.com | Jigawa Digital Network |
+| 2 | Aminu Ahmad Aliyu | Backend · auth, privacy and audit | `[EMAIL]` | `[ORG / UNIVERSITY]` |
+| 3 | Muhammad Usman Jada | Software developer · UI/UX, frontend and accessibility | `[EMAIL]` | `[ORG / UNIVERSITY]` |
 
 > Three members, within the 2–4 rule.
 
