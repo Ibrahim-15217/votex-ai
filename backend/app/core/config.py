@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # Application
     environment: str = "development"
-    app_version: str = "0.1.0"
+    app_version: str = "0.5.0"
     secret_key: str = "change-me-use-a-long-random-value"
     access_token_expire_minutes: int = 60
 

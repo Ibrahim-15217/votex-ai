@@ -13,6 +13,7 @@ import IntelligencePage from "./pages/IntelligencePage";
 import LoginPage from "./pages/LoginPage";
 import OverviewPage from "./pages/OverviewPage";
 import ReportPage from "./pages/ReportPage";
+import ResiliencePage from "./pages/ResiliencePage";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="incidents/:id" element={<IncidentDetailPage />} />
             <Route path="intelligence" element={<IntelligencePage />} />
             <Route path="dashboards" element={<DashboardsPage />} />
+            <Route path="resilience" element={<ResiliencePage />} />
             <Route path="report" element={<ReportPage />} />
             <Route path="audit" element={<AuditPage />} />
           </Route>

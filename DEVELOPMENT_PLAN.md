@@ -273,12 +273,35 @@ automated axe run are listed as Phase 6 hardening, not claimed as done.
 
 **Objective:** Add Track 4 depth if the MVP is already safe.
 
-- [ ] Lightweight resilience assessment with findings and remediation status.
-- [ ] One synthetic phishing-triage exercise with task tracking.
-- [ ] Exercise performance summary.
-- [ ] Offline-tolerant incident draft queue.
+- [x] Lightweight resilience assessment with findings and remediation status.
+- [x] One synthetic phishing-triage exercise with task tracking.
+- [x] Exercise performance summary.
+- [ ] Offline-tolerant incident draft queue. *(deferred: outside the Phase 5 scope chosen for this cycle and listed for Phase 6 hardening)*
 
 **Exit criteria:** one assessment and one exercise complete without touching a real system.
+
+| Evidence | Result |
+| --- | --- |
+| Questionnaire | Fixed 12 controls across 6 categories · maturity 0–4 · equal weights · score = mean maturity × 100 |
+| Bands | `fragile < 40`, `developing 40–69.9`, `resilient >= 70`; bands and severity colours match the rest of the interface |
+| Findings | Auto-generated for answers ≤ 2 (0 = critical, 1 = high, 2 = medium) with remediation status, owner and audit note persisted per finding |
+| Exercise | One fixed synthetic phishing-wave triage with six tracked tasks (boundary check, triage, indicators, containment, notification, decision note) |
+| Performance | Completion percentage, elapsed time, resolved/skipped counts and a `ready` / `developing` / `needs_review` grade |
+| API | 11 endpoints under `/api/v1/resilience`; every read and write is organisation-scoped and cross-tenant reads return 404 |
+| Audit | `resilience.assessment_created`, `resilience.finding_updated`, `resilience.exercise_created`, `resilience.exercise_task_updated`, `resilience.exercise_completed` |
+| Demo data | Baseline assessment **50.0 (developing)** and latest assessment **70.8 (resilient)** with 9/13 open findings; one completed exercise (5 done, 1 skipped) |
+| Backend tests | **`52 passed`** (`pytest -q`, 56.62s) — 40 existing + 12 Phase 5 tests |
+| Frontend build | `npm run build` passed · 410.76 kB JS (116.96 kB gzip) · 41.49 kB CSS (8.21 kB gzip) |
+| Browser verification | `/resilience` assessments, new-assessment form, exercises and 390×844 mobile: **0 console errors, 0 px horizontal overflow** |
+| Role check | Reporter sees the analyst-only notice, no nav entry and no assessment/exercise data |
+| Screenshots | `docs/demo/screenshots/phase5-resilience-{assessments,new-assessment,exercises}-1440x1000.png` and `phase5-resilience-mobile-390x844.png` |
+| Evidence document | [docs/security/RESILIENCE_AND_EXERCISES.md](./docs/security/RESILIENCE_AND_EXERCISES.md) |
+
+**Status: met locally.** The exit criterion passed: an analyst completed an
+assessment and the synthetic exercise without contacting any real system. The
+module is analyst-only and English-only with the visible `common.englishOnly`
+notice; nav and page chrome are localised in all four languages. The
+offline-tolerant draft queue was consciously deferred.
 
 > If the MVP is behind, skip this phase. Never trade core reliability for extra modules.
 

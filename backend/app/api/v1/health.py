@@ -61,4 +61,4 @@ def health() -> dict:
 def ready() -> dict:
     """Readiness probe used by orchestration and the demo pre-flight check."""
 
-    return {"ready": True, "phase": "hybrid-ai-engine"}
+    return {"ready": True, "phase": "resilience-and-simulation"}

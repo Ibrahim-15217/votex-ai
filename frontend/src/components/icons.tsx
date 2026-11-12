@@ -308,3 +308,30 @@ export function MapPinIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function TargetIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="12" cy="12" r="8.4" />
+      <circle cx="12" cy="12" r="4.4" />
+      <circle cx="12" cy="12" r="1.1" />
+    </svg>
+  );
+}
+
+export function PlayIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M8.5 5.6v12.8L19 12 8.5 5.6Z" />
+    </svg>
+  );
+}
+
+export function ClipboardIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M9 4.5h6a1.5 1.5 0 0 1 1.5 1.5v.5H18a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8.5a2 2 0 0 1 2-2h1.5V6A1.5 1.5 0 0 1 9 4.5Z" />
+      <path d="M8 11h8M8 15h5" />
+    </svg>
+  );
+}

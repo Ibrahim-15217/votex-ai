@@ -20,7 +20,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 from app.db.init_db import init_db  # noqa: E402
 from app.main import app  # noqa: E402
-from app.seed import seed_demo_data  # noqa: E402
+from app.seed import seed_demo_data, seed_resilience_demo  # noqa: E402
 
 DEMO_PASSWORD = "VotexDemo!23"
 
@@ -31,6 +31,7 @@ def seeded() -> None:
 
     init_db()
     assert seed_demo_data() is True
+    seed_resilience_demo()
 
 
 @pytest.fixture(scope="session")

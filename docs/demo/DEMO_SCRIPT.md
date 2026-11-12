@@ -2,7 +2,7 @@
 
 | Field | Detail |
 | --- | --- |
-| **Status** | Draft v0.3 — Phase 4 inclusion and experience |
+| **Status** | Draft v0.4 — Phase 5 resilience module ready; three-minute timing unchanged |
 | **Target length** | 3:00 maximum |
 | **Audience** | Track 4 judges and grand-prize panel |
 | **Demo data** | Synthetic only |
@@ -26,6 +26,7 @@ Run this 15 minutes before presenting.
 - [ ] Keyboard-only flow works: `Tab` to a language target, `Enter`, then `Tab` through the intake and `Enter` to submit.
 - [ ] Four locales visible on sign-in: English, Hausa, Yorùbá, Igbo.
 - [ ] Mobile viewport renders without horizontal scrolling.
+- [ ] Resilience workspace shows latest score **70.8 (resilient)**, 9/13 open findings and one completed exercise.
 - [ ] Screen recording available as fallback.
 - [ ] Back-up laptop and hotspot tested.
 

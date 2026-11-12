@@ -27,7 +27,7 @@ def test_ready_probe() -> None:
     response = client.get("/api/v1/ready")
 
     assert response.status_code == 200
-    assert response.json() == {"ready": True, "phase": "hybrid-ai-engine"}
+    assert response.json() == {"ready": True, "phase": "resilience-and-simulation"}
 
 
 def test_root_identity_hides_secrets() -> None:

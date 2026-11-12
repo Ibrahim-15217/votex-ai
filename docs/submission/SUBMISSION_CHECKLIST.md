@@ -46,6 +46,7 @@ Field-by-field, copy-paste answers for the live portal (5 steps):
 | Threat model | **Done** | [../security/THREAT_MODEL.md](../security/THREAT_MODEL.md) |
 | Privacy evidence | **Done** | [../security/PRIVACY_AND_CORRELATION.md](../security/PRIVACY_AND_CORRELATION.md) |
 | Accessibility evidence | **Done** | [../security/ACCESSIBILITY_AND_LOCALISATION.md](../security/ACCESSIBILITY_AND_LOCALISATION.md) |
+| Resilience evidence | **Done** | [../security/RESILIENCE_AND_EXERCISES.md](../security/RESILIENCE_AND_EXERCISES.md) |
 | Three-minute demo video | **User** | Script: [../demo/DEMO_SCRIPT.md](../demo/DEMO_SCRIPT.md) |
 | Fresh-clone test | **Done** | **PASS** at `f67cd47` — [FRESH_CLONE_VERIFICATION.md](./FRESH_CLONE_VERIFICATION.md) |
 | Demonstration tests (13 scenarios) | **Partial** | Covered by the demo script; record the run |
@@ -101,7 +102,7 @@ cd ../backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python -m pytest -q        # expect 40 passed
+python -m pytest -q        # expect 52 passed
 
 # Run
 uvicorn app.main:app --host 127.0.0.1 --port 8000

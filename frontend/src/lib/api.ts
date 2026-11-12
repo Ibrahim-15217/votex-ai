@@ -316,6 +316,123 @@ export type AuditVerifyResult = {
   checked_at: string;
 };
 
+export type ReadinessBand = "fragile" | "developing" | "resilient";
+export type FindingSeverity = "critical" | "high" | "medium" | "low";
+export type RemediationStatus = "open" | "in_progress" | "resolved" | "accepted";
+export type ExerciseStatus = "running" | "completed";
+export type ExerciseTaskStatus = "pending" | "in_progress" | "done" | "skipped";
+
+export type ResilienceControl = {
+  key: string;
+  category: string;
+  title: string;
+  detail: string;
+  remediation: string;
+};
+
+export type ResilienceQuestionnaire = {
+  controls: ResilienceControl[];
+  maturity_levels: Record<string, string>;
+  scoring_note: string;
+};
+
+export type ResilienceFinding = {
+  id: number;
+  category: string;
+  title: string;
+  detail: string;
+  severity: FindingSeverity;
+  remediation_status: RemediationStatus;
+  owner: string | null;
+  due_date: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AssessmentListItem = {
+  id: string;
+  title: string;
+  status: string;
+  score: number;
+  band: ReadinessBand;
+  assessment_date: string;
+  created_at: string;
+  total_findings: number;
+  open_findings: number;
+};
+
+export type AssessmentDetail = AssessmentListItem & {
+  notes: string;
+  summary: string;
+  answers: Record<string, number>;
+  controls: ResilienceControl[];
+  findings: ResilienceFinding[];
+  created_by: UserSummary | null;
+};
+
+export type ResilienceSummary = {
+  total_assessments: number;
+  latest: AssessmentListItem | null;
+  total_findings: number;
+  open_findings: number;
+  resolved_findings: number;
+  open_by_severity: Record<string, number>;
+};
+
+export type ExerciseTask = {
+  id: number;
+  sequence: number;
+  title: string;
+  description: string;
+  expected_action: string;
+  status: ExerciseTaskStatus;
+  notes: string;
+  completed_at: string | null;
+  completed_by: UserSummary | null;
+};
+
+export type ExercisePerformance = {
+  tasks_total: number;
+  tasks_done: number;
+  tasks_skipped: number;
+  tasks_resolved: number;
+  completion_pct: number;
+  elapsed_seconds: number;
+  grade: "ready" | "developing" | "needs_review";
+  note: string;
+};
+
+export type ExerciseListItem = {
+  id: string;
+  scenario_key: string;
+  title: string;
+  summary: string;
+  status: ExerciseStatus;
+  started_at: string;
+  completed_at: string | null;
+  created_at: string;
+  tasks_total: number;
+  tasks_done: number;
+};
+
+export type ExerciseDetail = ExerciseListItem & {
+  tasks: ExerciseTask[];
+  performance: ExercisePerformance;
+  created_by: UserSummary | null;
+};
+
+export type AssessmentCreatePayload = {
+  title: string;
+  notes?: string | null;
+  answers: Record<string, number>;
+};
+
+export type FindingUpdatePayload = {
+  remediation_status?: RemediationStatus;
+  owner?: string | null;
+  note?: string | null;
+};
+
 const API_BASE = (
   import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000/api/v1"
 ).replace(/\/$/, "");
@@ -500,6 +617,54 @@ export const api = {
     request<AuditPage>(`/audit${queryString(params)}`),
 
   verifyAudit: () => request<AuditVerifyResult>("/audit/verify"),
+
+  resilienceQuestionnaire: () =>
+    request<ResilienceQuestionnaire>("/resilience/questionnaire"),
+
+  resilienceSummary: () => request<ResilienceSummary>("/resilience/summary"),
+
+  resilienceAssessments: () =>
+    request<AssessmentListItem[]>("/resilience/assessments"),
+
+  resilienceAssessment: (id: string) =>
+    request<AssessmentDetail>(`/resilience/assessments/${id}`),
+
+  createResilienceAssessment: (payload: AssessmentCreatePayload) =>
+    request<AssessmentDetail>("/resilience/assessments", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  updateResilienceFinding: (findingId: number, payload: FindingUpdatePayload) =>
+    request<AssessmentDetail>(`/resilience/findings/${findingId}`, {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    }),
+
+  exercises: () => request<ExerciseListItem[]>("/resilience/exercises"),
+
+  exercise: (id: string) => request<ExerciseDetail>(`/resilience/exercises/${id}`),
+
+  createExercise: (title?: string | null) =>
+    request<ExerciseDetail>("/resilience/exercises", {
+      method: "POST",
+      body: JSON.stringify({ title: title || null }),
+    }),
+
+  updateExerciseTask: (
+    exerciseId: string,
+    taskId: number,
+    payload: { status: ExerciseTaskStatus; notes?: string | null },
+  ) =>
+    request<ExerciseDetail>(
+      `/resilience/exercises/${exerciseId}/tasks/${taskId}`,
+      { method: "PATCH", body: JSON.stringify(payload) },
+    ),
+
+  completeExercise: (exerciseId: string) =>
+    request<ExerciseDetail>(`/resilience/exercises/${exerciseId}/complete`, {
+      method: "POST",
+    }),
 };
 
 export async function downloadEvidence(

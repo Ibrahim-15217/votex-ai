@@ -319,9 +319,183 @@ class IncidentIndicator(Base):
     indicator: Mapped[Indicator] = relationship(back_populates="links")
 
 
+class ResilienceAssessment(Base):
+    """A point-in-time organisational readiness assessment.
+
+    Answers are stored alongside the computed score so the result can be
+    audited and recomputed later. An assessment is never edited in place; a
+    new one is created when the posture changes.
+    """
+
+    __tablename__ = "resilience_assessments"
+    __table_args__ = (
+        Index("ix_resilience_assessments_org_date", "organisation_id", "assessment_date"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    organisation_id: Mapped[int] = mapped_column(
+        ForeignKey("organisations.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    created_by_id: Mapped[int | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), index=True, nullable=True
+    )
+
+    title: Mapped[str] = mapped_column(String(160), nullable=False)
+    notes: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="completed", nullable=False)
+    assessment_date: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+    score: Mapped[float] = mapped_column(Float, nullable=False)
+    band: Mapped[str] = mapped_column(String(20), nullable=False)
+    answers_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    summary: Mapped[str] = mapped_column(Text, default="", nullable=False)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False
+    )
+
+    created_by: Mapped[User | None] = relationship()
+    findings: Mapped[list["ResilienceFinding"]] = relationship(
+        back_populates="assessment",
+        cascade="all, delete-orphan",
+        order_by="ResilienceFinding.id",
+    )
+
+    @property
+    def answers(self) -> dict[str, int]:
+        """Recorded maturity answer for every control."""
+
+        return self.answers_json or {}
+
+    @property
+    def total_findings(self) -> int:
+        return len(self.findings)
+
+    @property
+    def open_findings(self) -> int:
+        return sum(1 for finding in self.findings if finding.remediation_status != "resolved")
+
+
+class ResilienceFinding(Base):
+    """A remediation item generated from a control answered below implemented."""
+
+    __tablename__ = "resilience_findings"
+    __table_args__ = (
+        Index("ix_resilience_findings_org_status", "organisation_id", "remediation_status"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    assessment_id: Mapped[str] = mapped_column(
+        ForeignKey("resilience_assessments.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    organisation_id: Mapped[int] = mapped_column(
+        ForeignKey("organisations.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+
+    category: Mapped[str] = mapped_column(String(30), nullable=False)
+    title: Mapped[str] = mapped_column(String(160), nullable=False)
+    detail: Mapped[str] = mapped_column(Text, nullable=False)
+    severity: Mapped[str] = mapped_column(String(20), nullable=False)
+    remediation_status: Mapped[str] = mapped_column(
+        String(20), default="open", nullable=False
+    )
+    owner: Mapped[str | None] = mapped_column(String(160), nullable=True)
+    due_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False
+    )
+
+    assessment: Mapped[ResilienceAssessment] = relationship(back_populates="findings")
+
+
+class Exercise(Base):
+    """A synthetic tabletop exercise owned by one organisation."""
+
+    __tablename__ = "exercises"
+    __table_args__ = (Index("ix_exercises_org_created", "organisation_id", "created_at"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    organisation_id: Mapped[int] = mapped_column(
+        ForeignKey("organisations.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    created_by_id: Mapped[int | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), index=True, nullable=True
+    )
+
+    scenario_key: Mapped[str] = mapped_column(String(60), nullable=False)
+    title: Mapped[str] = mapped_column(String(160), nullable=False)
+    summary: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="running", nullable=False)
+    started_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+
+    created_by: Mapped[User | None] = relationship()
+    tasks: Mapped[list["ExerciseTask"]] = relationship(
+        back_populates="exercise",
+        cascade="all, delete-orphan",
+        order_by="ExerciseTask.sequence",
+    )
+
+    @property
+    def tasks_total(self) -> int:
+        return len(self.tasks)
+
+    @property
+    def tasks_done(self) -> int:
+        return sum(1 for task in self.tasks if task.status == "done")
+
+
+class ExerciseTask(Base):
+    """One recorded step in a synthetic exercise."""
+
+    __tablename__ = "exercise_tasks"
+    __table_args__ = (Index("ix_exercise_tasks_exercise", "exercise_id", "sequence"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    exercise_id: Mapped[str] = mapped_column(
+        ForeignKey("exercises.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    organisation_id: Mapped[int] = mapped_column(
+        ForeignKey("organisations.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+
+    sequence: Mapped[int] = mapped_column(Integer, nullable=False)
+    title: Mapped[str] = mapped_column(String(160), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    expected_action: Mapped[str] = mapped_column(Text, nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="pending", nullable=False)
+    notes: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    completed_by_id: Mapped[int | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False
+    )
+
+    exercise: Mapped[Exercise] = relationship(back_populates="tasks")
+    completed_by: Mapped[User | None] = relationship()
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
-
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     organisation_id: Mapped[int | None] = mapped_column(
         ForeignKey("organisations.id", ondelete="SET NULL"), index=True, nullable=True

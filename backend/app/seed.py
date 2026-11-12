@@ -18,8 +18,24 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.security import hash_password
 from app.core.time import utcnow
-from app.db.models import Evidence, Incident, IncidentEvent, Organisation, User
+from app.db.models import (
+    Evidence,
+    Exercise,
+    Incident,
+    IncidentEvent,
+    Organisation,
+    ResilienceAssessment,
+    ResilienceFinding,
+    User,
+)
 from app.db.session import SessionLocal
+from app.schemas.resilience import (
+    AssessmentCreate,
+    ExerciseCreate,
+    ExerciseTaskUpdate,
+    FindingUpdate,
+)
+from app.services import resilience as resilience_service
 from app.services.audit import record_audit
 
 DEMO_ORGS = [
@@ -1029,4 +1045,137 @@ def seed_demo_data() -> bool:
             _seed_incident(db, item, users)
 
         db.commit()
+    return True
+
+
+OLDER_ANSWERS = {
+    "governance.owner": 3,
+    "governance.plan": 2,
+    "governance.vendor": 2,
+    "identity.mfa": 3,
+    "identity.privileged": 2,
+    "identity.phishing_resistant": 1,
+    "network.inventory": 2,
+    "network.email": 3,
+    "data.backup": 2,
+    "data.retention": 1,
+    "response.exercise": 1,
+    "people.awareness": 2,
+}
+
+
+def seed_resilience_demo() -> bool:
+    """Create two readiness assessments and one completed exercise.
+
+    Returns ``True`` when the demo records were created and ``False`` when the
+    organisation already has assessments or the demo tenant is missing. Safe to
+    call on every application start.
+    """
+
+    with SessionLocal() as db:
+        organisation = db.scalar(
+            select(Organisation).where(Organisation.slug == "votex-demo-authority")
+        )
+        analyst = db.scalar(select(User).where(User.email == "analyst@votex.demo"))
+        if organisation is None or analyst is None:
+            return False
+        if db.scalar(select(ResilienceAssessment).limit(1)) is not None:
+            return False
+
+        older = resilience_service.create_assessment(
+            db,
+            analyst,
+            AssessmentCreate(
+                title="Pre-exercise readiness baseline",
+                notes=(
+                    "Synthetic baseline taken before the first tabletop exercise. "
+                    "Scores are illustrative and use no real assessment data."
+                ),
+                answers=OLDER_ANSWERS,
+            ),
+        )
+        older_date = utcnow() - timedelta(days=30)
+        for finding in db.scalars(
+            select(ResilienceFinding).where(
+                ResilienceFinding.assessment_id == older.id
+            )
+        ):
+            finding.created_at = older_date
+            finding.updated_at = older_date
+        db.commit()
+
+        for finding in older.findings:
+            if finding.title in {
+                "Phishing-resistant privileged access",
+                "Third-party and supplier checks",
+                "Encrypted backups and restore tests",
+                "Role-based security awareness",
+            }:
+                resilience_service.update_finding(
+                    db,
+                    analyst,
+                    finding.id,
+                    FindingUpdate(
+                        remediation_status="resolved",
+                        owner="Response team",
+                        note="Closed during the demonstration data setup.",
+                    ),
+                )
+
+        latest = resilience_service.create_assessment(
+            db,
+            analyst,
+            AssessmentCreate(
+                title="Post-exercise readiness review",
+                notes=(
+                    "Synthetic review after the tabletop exercise. The score reflects "
+                    "the recorded answers only and is not a certified audit."
+                ),
+                answers=resilience_service.seeded_answers(),
+            ),
+        )
+        for finding in latest.findings:
+            if finding.title == "Phishing-resistant privileged access":
+                resilience_service.update_finding(
+                    db,
+                    analyst,
+                    finding.id,
+                    FindingUpdate(
+                        remediation_status="in_progress",
+                        owner="Identity workstream",
+                        note="Passkey pilot scheduled for two privileged accounts.",
+                    ),
+                )
+
+        older_row = db.get(ResilienceAssessment, older.id)
+        latest_row = db.get(ResilienceAssessment, latest.id)
+        if older_row is not None:
+            older_row.assessment_date = older_date
+        if latest_row is not None:
+            latest_row.assessment_date = utcnow() - timedelta(days=7)
+        db.commit()
+
+        exercise = resilience_service.create_exercise(db, analyst, ExerciseCreate())
+        for task in exercise.tasks:
+            status = "done" if task.sequence <= 5 else "skipped"
+            notes = (
+                "Recorded by the demonstration analyst during the synthetic run."
+                if status == "done"
+                else "Skipped because the synthetic scenario ended at the decision note."
+            )
+            resilience_service.update_exercise_task(
+                db,
+                analyst,
+                exercise.id,
+                task.id,
+                ExerciseTaskUpdate(status=status, notes=notes),
+            )
+        resilience_service.complete_exercise(db, analyst, exercise.id)
+
+        exercise_row = db.get(Exercise, exercise.id)
+        if exercise_row is not None:
+            started = utcnow() - timedelta(days=12)
+            exercise_row.started_at = started
+            exercise_row.completed_at = started + timedelta(minutes=41)
+            db.commit()
     return True

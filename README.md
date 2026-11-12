@@ -4,7 +4,7 @@
 
 Votex AI is an electoral cybersecurity intelligence and incident coordination prototype built for **Track 4 — Electoral Cybersecurity & Resilience** of the **#AI4Elections Hackathon 2026–2027**.
 
-> **Status: Phase 4 — Inclusion and experience.** Phase 1 mounted the secure workflow spine (JWT authentication, organisation isolation, incident lifecycle, evidence hashing, hash-chained audit). Phase 2 added a trained, explainable hybrid analyser: URL and rule intelligence, NLP signals, a TF-IDF + Logistic Regression classifier and a published weighted risk score. Phase 3 turns reports into situational awareness: deterministic indicator extraction, tenant-scoped correlation, related-incident views, organisation and national dashboards, k ≥ 5 suppression in the query layer, and audited CSV exports. Phase 4 makes the prototype usable by the people who report threats: four complete interface locales (English, Hausa, Yoruba, Igbo), a keyboard-only intake path, WCAG 2.2 AA measures, low-bandwidth rendering and responsive layouts from 390 px to 1440 px. See [DEVELOPMENT_PLAN.md](./DEVELOPMENT_PLAN.md).
+> **Status: Phase 5 — Resilience and simulation.** Phase 1 mounted the secure workflow spine (JWT authentication, organisation isolation, incident lifecycle, evidence hashing, hash-chained audit). Phase 2 added a trained, explainable hybrid analyser: URL and rule intelligence, NLP signals, a TF-IDF + Logistic Regression classifier and a published weighted risk score. Phase 3 turns reports into situational awareness: deterministic indicator extraction, tenant-scoped correlation, related-incident views, organisation and national dashboards, k ≥ 5 suppression in the query layer, and audited CSV exports. Phase 4 makes the prototype usable by the people who report threats: four complete interface locales (English, Hausa, Yoruba, Igbo), a keyboard-only intake path, WCAG 2.2 AA measures, low-bandwidth rendering and responsive layouts from 390 px to 1440 px. Phase 5 adds Track 4 depth: a fixed 12-control readiness assessment with auto-generated remediation findings, and a synthetic phishing-triage exercise with six tracked tasks and an after-action performance summary. See [DEVELOPMENT_PLAN.md](./DEVELOPMENT_PLAN.md).
 
 ---
 
@@ -23,6 +23,8 @@ One complete, defensible workflow:
 - **Indicator correlation** across reports sharing domains, URLs, IPs or file hashes.
 - **Response coordination** with assignment, status transitions, actions and a complete timeline.
 - **Privacy-preserving national view** using k-anonymity suppression (k ≥ 5).
+- **Resilience readiness** scored from a fixed 12-control questionnaire, with severity-ranked findings and tracked remediation.
+- **Synthetic exercises** that rehearse phishing triage and record an audited after-action summary without touching a real system.
 - **Tamper-evident audit** using a SHA-256 hash chain and a verification command.
 - **Inclusive interface** in English, Hausa, Yoruba and Igbo, with WCAG 2.2 AA as the target and a keyboard-only reporting path.
 
@@ -34,13 +36,15 @@ One complete, defensible workflow:
 
 | Evidence | Result |
 | --- | --- |
-| Backend test suite | **40 passed** (`pytest -q`, 47.07s) |
+| Backend test suite | **52 passed** (`pytest -q`, 56.62s) |
+| Resilience demo | Baseline assessment **50.0 (developing)** → latest **70.8 (resilient)** · 9/13 findings open · one completed exercise (5 done, 1 skipped) |
+| Resilience isolation | Reporter sees the analyst-only notice and no readiness data · cross-tenant assessment and exercise reads return 404 |
 | Correlation (live demo) | 5 shared indicators link 9 of 10 reports in the demo authority |
 | Cross-tenant national view | PVC URL/domain linked to 5 incidents across 2 organisations: the smallest k cell that can surface |
 | Privacy suppression (live) | 39 national cells returned as `null` before reaching the browser or CSV |
 | Related incidents | A10002 → 3 linked cases; A10010 → A10001 via URL, domain and identical evidence SHA-256 |
 | Audit | `intelligence.exported` recorded for indicator, organisation and national CSV exports; chain valid |
-| Browser verification | Intelligence, organisation dashboard, national dashboard, related incidents, audit and overview rendered with **0 JS errors** |
+| Browser verification | Seven routes including `/resilience` rendered with **0 JS errors, 0 px horizontal overflow**; `/resilience` also verified at 390×844 |
 | Localisation | Four complete locales; `<html lang>` and `localStorage` verified for `en`, `ha`, `yo`, `ig` |
 | Keyboard-only intake | Tab to the Igbo switcher, `Enter`, type title and description, `Enter` to submit, localised success banner — no pointer used |
 | Responsive sweep | 6 routes × 4 widths (390/768/1024/1440 px): **0 horizontal overflows, 0 console errors** |
@@ -213,6 +217,7 @@ Measured keyboard, locale, contrast and responsive evidence:
 | [docs/security/THREAT_MODEL.md](./docs/security/THREAT_MODEL.md) | STRIDE/LINDDUN threat model and controls |
 | [docs/security/PRIVACY_AND_CORRELATION.md](./docs/security/PRIVACY_AND_CORRELATION.md) | Tenant isolation, k-anonymity suppression and audited exports |
 | [docs/security/ACCESSIBILITY_AND_LOCALISATION.md](./docs/security/ACCESSIBILITY_AND_LOCALISATION.md) | WCAG 2.2 AA measures, locale coverage and keyboard evidence |
+| [docs/security/RESILIENCE_AND_EXERCISES.md](./docs/security/RESILIENCE_AND_EXERCISES.md) | Readiness questionnaire, scoring, findings, exercise lifecycle, tenancy and audit events |
 | [docs/submission/SUBMISSION_CHECKLIST.md](./docs/submission/SUBMISSION_CHECKLIST.md) | Application and prototype submission gates, safety checks, fresh-clone test |
 | [docs/submission/APPLICATION_DRAFT.md](./docs/submission/APPLICATION_DRAFT.md) | Draft application answers and team placeholders |
 | [docs/submission/APPLICATION_FORM_ANSWERS.md](./docs/submission/APPLICATION_FORM_ANSWERS.md) | Field-by-field answers for the live portal form |

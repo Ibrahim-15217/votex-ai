@@ -15,7 +15,7 @@ from app.api.v1.router import api_router
 from app.core.config import settings
 from app.db.init_db import init_db
 from app.db.session import SessionLocal
-from app.seed import seed_demo_data
+from app.seed import seed_demo_data, seed_resilience_demo
 from app.services.analysis import backfill_missing_analyses
 from app.services.correlation import backfill_indicators
 
@@ -27,6 +27,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     init_db()
     if settings.auto_seed:
         seed_demo_data()
+        seed_resilience_demo()
     with SessionLocal() as db:
         backfill_missing_analyses(db)
         backfill_indicators(db)
@@ -69,5 +70,5 @@ def root() -> dict:
         "version": settings.app_version,
         "docs": "/api/docs",
         "health": "/api/v1/health",
-        "phase": "hybrid-ai-engine",
+        "phase": "resilience-and-simulation",
     }

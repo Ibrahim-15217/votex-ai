@@ -13,6 +13,7 @@ import {
   NetworkIcon,
   PlusIcon,
   ShieldCheckIcon,
+  TargetIcon,
   XIcon,
 } from "./icons";
 import { cn } from "./ui";
@@ -26,6 +27,7 @@ const pageTitles: Record<string, PageKey> = {
   "/incidents": { title: "page.incidents.title", eyebrow: "page.incidents.eyebrow" },
   "/intelligence": { title: "page.intelligence.title", eyebrow: "page.intelligence.eyebrow" },
   "/dashboards": { title: "page.dashboards.title", eyebrow: "page.dashboards.eyebrow" },
+  "/resilience": { title: "page.resilience.title", eyebrow: "page.resilience.eyebrow" },
   "/report": { title: "page.report.title", eyebrow: "page.report.eyebrow" },
   "/audit": { title: "page.audit.title", eyebrow: "page.audit.eyebrow" },
 };
@@ -47,6 +49,7 @@ const navItems: Array<{
     analystOnly: true,
   },
   { to: "/dashboards", label: "nav.dashboards", icon: LayersIcon, end: true, analystOnly: true },
+  { to: "/resilience", label: "nav.resilience", icon: TargetIcon, end: true, analystOnly: true },
   { to: "/report", label: "nav.report", icon: PlusIcon, end: true },
   { to: "/audit", label: "nav.audit", icon: ShieldCheckIcon, end: true, analystOnly: true },
 ];
