@@ -3,25 +3,27 @@
 **Application deadline:** 12 November 2026, 11:59pm WAT
 **Prototype deadline:** 13 December 2026
 
-Status as of **11 November 2026**. Items marked **User** need a human decision or
-credentials; items marked **Done** are in the repository.
+Status as of **12 November 2026**. The application has been submitted; work now
+targets the **13 December 2026** prototype deadline. Items marked **User** need
+a human decision, credentials or a recording; items marked **Done** are in the
+repository.
 
 ---
 
-## 1. Application (due tomorrow)
+## 1. Application (submitted 12 November 2026)
 
 | Item | Status | Notes |
 | --- | --- | --- |
-| Team size 2–4 and eligibility confirmed | **User** | Names, emails, roles and affiliations |
+| Team size 2–4 and eligibility confirmed | **Done** | Cyber Defenders — three members |
 | Track selected | **Done** | Track 4 — Electoral Cybersecurity & Resilience |
 | Project name and one-line pitch | **Done** | Votex AI — securing elections through intelligent cybersecurity |
 | Problem statement (max one page) | **Done** | [PROBLEM_STATEMENT.md](./PROBLEM_STATEMENT.md) |
 | Methodology summary | **Done** | [METHODOLOGY.md](./METHODOLOGY.md) |
 | Working prototype link | **Done** | https://github.com/Ibrahim-15217/votex-ai |
-| Declarations: nonpartisan, no live systems, synthetic data, human oversight | **User** | Confirm on the form |
+| Declarations: nonpartisan, no live systems, synthetic data, human oversight | **Done** | Confirmed on the form |
 | AI-tool assistance disclosed | **Done** | Section 9 of [METHODOLOGY.md](./METHODOLOGY.md) |
-| Contact person and phone | **User** | Must be reachable after submission |
-| Application submitted and receipt saved | **User** | Screenshot the confirmation page/email |
+| Contact person and phone | **Done** | Ibrahim Musa Mahmud |
+| Application submitted and receipt saved | **Partial** | Submitted 12 Nov 2026 — **save the confirmation screenshot/email** |
 
 Application answer drafts with placeholders: [APPLICATION_DRAFT.md](./APPLICATION_DRAFT.md).
 Field-by-field, copy-paste answers for the live portal (5 steps):
@@ -45,7 +47,7 @@ Field-by-field, copy-paste answers for the live portal (5 steps):
 | Privacy evidence | **Done** | [../security/PRIVACY_AND_CORRELATION.md](../security/PRIVACY_AND_CORRELATION.md) |
 | Accessibility evidence | **Done** | [../security/ACCESSIBILITY_AND_LOCALISATION.md](../security/ACCESSIBILITY_AND_LOCALISATION.md) |
 | Three-minute demo video | **User** | Script: [../demo/DEMO_SCRIPT.md](../demo/DEMO_SCRIPT.md) |
-| Fresh-clone test | **User** | Steps below; run on a clean machine |
+| Fresh-clone test | **Done** | **PASS** at `f67cd47` — [FRESH_CLONE_VERIFICATION.md](./FRESH_CLONE_VERIFICATION.md) |
 | Demonstration tests (13 scenarios) | **Partial** | Covered by the demo script; record the run |
 
 ---
@@ -77,7 +79,13 @@ database are already listed in [.gitignore](../../.gitignore).
 
 ## 4. Fresh-clone test
 
-Run on a machine that has never seen the project.
+**Result (12 November 2026): PASS at `f67cd47`.** Full commands, outputs and the
+PASS/FAIL table are in
+[FRESH_CLONE_VERIFICATION.md](./FRESH_CLONE_VERIFICATION.md). Screenshots of all
+six routes from the clean checkout are in
+[evidence/fresh-clone/](./evidence/fresh-clone/).
+
+Run again on a machine that has never seen the project:
 
 ```bash
 git clone <public-repo-url> votex-ai
@@ -105,11 +113,16 @@ npm run dev
 Then sign in as `reporter@votex.demo` / `VotexDemo!23`, submit one synthetic
 report, and confirm:
 
-- [ ] Overview, queue, intake, intelligence, dashboards and audit load.
-- [ ] The audit chain verifies.
-- [ ] A keyboard-only user can switch language and submit a report.
-- [ ] The national dashboard shows a suppressed cell.
-- [ ] No browser console errors.
+- [x] Overview, queue, intake, intelligence, dashboards and audit load.
+- [x] The audit chain verifies.
+- [x] The national dashboard shows a suppressed cell.
+- [x] No browser console errors.
+- [x] A keyboard-only user can switch language and submit a report — verified in
+      the Phase 4 accessibility run on the same code, recorded in
+      [../security/ACCESSIBILITY_AND_LOCALISATION.md](../security/ACCESSIBILITY_AND_LOCALISATION.md).
+
+The first four were re-confirmed on the clean checkout on 12 November 2026;
+re-run all five on the final frozen commit.
 
 Record the terminal output and one screenshot per step.
 
@@ -136,9 +149,9 @@ slide, no unsupported claim. Keep a recorded fallback.
 
 | When | Action |
 | --- | --- |
-| **Today, 11 Nov** | Confirm team, fill application draft, create repository, run safety checks |
-| **Tomorrow, 12 Nov before 11:59pm WAT** | Submit application and save the receipt |
-| 13 Nov – 30 Nov | Fresh-clone hardening, axe-core accessibility run, native-language review |
+| **11 Nov 2026** | Team, application draft, repository, safety checks — **done** |
+| **12 Nov 2026** | Application submitted — **done**; fresh-clone verification — **done** |
+| 13 Nov – 30 Nov | axe-core accessibility run, native-language review, 13-scenario demonstration run |
 | 1 Dec – 8 Dec | Record and rehearse the three-minute demo |
 | 9 Dec – 12 Dec | Final test pass, frozen build, evidence pack |
 | **13 Dec** | Submit prototype before the deadline |
