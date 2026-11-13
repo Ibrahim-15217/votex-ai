@@ -19,7 +19,10 @@ const ig: Record<TranslationKey, string> = {
   "common.allStatuses": "Ọnọdụ niile",
   "common.allPriorities": "Mkpa niile",
   "common.englishOnly":
-    "Ndekọ ikpe, nkọwa AI na bọọdụ ndị nyocha ka dị n'Bekee na ihe nlele a. Nhazi, nnabata na ndepụta dị n'asụsụ anọ niile.",
+    "Ndekọ ikpe, nkọwa AI na bọọdụ ndị nyocha ka dị n'Bekee na ihe nlele a.",
+  "common.englishOnlyBadge": "Bekee · data ikpe",
+  "common.retry": "Nwaa ọzọ",
+  "common.unavailable": "Adịghị",
 
   "a11y.primaryNav": "Isi nhazi",
   "a11y.openNav": "Meghee nhazi",
@@ -27,6 +30,7 @@ const ig: Record<TranslationKey, string> = {
   "a11y.signOut": "Pụọ",
   "a11y.languageGroup": "Họrọ asụsụ interface",
   "a11y.routeAnnouncement": "E meghere ibe {page}",
+  "a11y.breadcrumb": "Ebe",
   "a11y.chartTrend": "Eserese akụkọ ụbọchị 30 gara aga",
 
   "nav.overview": "Nchịkọta",
@@ -47,7 +51,7 @@ const ig: Record<TranslationKey, string> = {
   "page.dashboards.eyebrow": "Ịmara ọnọdụ",
   "page.resilience.title": "Nkwụsi ike na ịme anwansị",
   "page.resilience.eyebrow": "Nkwadebe",
-  "page.report.title": "Kọọ ihe omume",
+  "page.report.title": "Kọọ ihe iyi egwu",
   "page.report.eyebrow": "Nnabata",
   "page.audit.title": "Usoro nyocha",
   "page.audit.eyebrow": "Iguzosi ike",
@@ -62,7 +66,6 @@ const ig: Record<TranslationKey, string> = {
   "shell.evidenceHash": "SHA-256 hash nke ihe akaebe",
   "shell.kAnon": "k ≥ 5 na nchịkọta mba",
   "shell.offline": "Ọ naghị emeghe njikọ",
-  "shell.phase": "Usoro 5 · Nkwụsi ike na ịme anwansị",
   "shell.footerHackathon": "Votex AI · #AI4Elections Hackathon 2026–2027 · Usoro 4",
   "shell.footerDisclaimer":
     "Naanị data echepụtara · Ejikọghị ya na INEC ma ọ bụ onye mmekọ ọ bụla",
@@ -71,8 +74,6 @@ const ig: Record<TranslationKey, string> = {
   "role.analyst": "Onye nyocha",
   "role.reporter": "Onye na-akọ",
 
-  "login.status": "Sistemụ dị njikere",
-  "login.track": "Usoro 04 · Nchekwa Ịntanetị Ntuli aka",
   "login.heroTitleA": "Nchekwa ịntanetị ntuli aka,",
   "login.heroTitleB": "n'otu aka.",
   "login.heroSubtitle":
@@ -84,11 +85,10 @@ const ig: Record<TranslationKey, string> = {
   "login.feature3Title": "E chekwara nzuzo",
   "login.feature3Body": "Nkewa n'otu nke ọma na k ≥ 5 na nchịkọta mba.",
   "login.signalTitle": "Nlele arụmọrụ",
-  "login.syntheticPreview": "Data nlele · naanị ihe echepụtara",
-  "login.metricReports": "Akụkọ enyochara",
+  "login.syntheticPreview": "Data nlele dị ndụ · naanị ihe echepụtara",
+  "login.metricReports": "Akụkọ",
   "login.metricLinked": "Ngosi ejikọtara",
   "login.metricAudit": "Agbụ ndekọ",
-  "login.version": "v0.5.0 · Usoro 5",
   "login.signInTitle": "Banye n'ụlọ ọrụ",
   "login.signInSubtitle": "Jiri akaụntụ òtù e kenyere gị.",
   "login.secureAccess": "Ntinye echekwara",
@@ -98,7 +98,6 @@ const ig: Record<TranslationKey, string> = {
   "login.passwordPlaceholder": "Tinye okwuntughe gị",
   "login.showPassword": "Gosi okwuntughe",
   "login.hidePassword": "Zochie okwuntughe",
-  "login.remember": "Cheta m",
   "login.forgot": "Chefuru okwuntughe?",
   "login.signIn": "Banye",
   "login.signingIn": "Na-abanye…",
@@ -142,7 +141,7 @@ const ig: Record<TranslationKey, string> = {
   "report.descriptionPlaceholder":
     "Gịnị ka i nwetara ma ọ bụ hụ? Onye ka e lekwasịrị anya? Gịnị ka e meelarị? Etinyela okwuntughe, OTP ma ọ bụ ozi njirimara onye ntuli aka.",
   "report.descriptionCount": "{count} / 10,000",
-  "report.privacyNote": "Echekwara naanị n'otu gị · akaụntụ nlele echepụtara",
+  "report.privacyNote": "A na-ahụ ya naanị n'otu gị · data echepụtara",
   "report.submit": "Zipu akụkọ",
   "report.submitting": "Na-ezipu akụkọ…",
   "report.submitError": "Enweghị ike izipu akụkọ.",
@@ -264,6 +263,7 @@ const ig: Record<TranslationKey, string> = {
   "overview.countersEmpty": "Ọnụ ọgụgụ ga-apụta mgbe akụkọ bịara.",
   "overview.auditTitle": "Agbụ ndekọ",
   "overview.auditDescription": "Agbụ SHA-256 a na-apụghị ihichapụ.",
+  "overview.auditUnavailable": "Enweghị ike ịnwapụta agbụ ndekọ ahụ.",
   "overview.entriesChecked": "Ndekọ enyochara",
   "overview.latestHash": "Hash kachasị ọhụrụ",
   "overview.inspectChain": "Nyochaa agbụ",
@@ -287,7 +287,7 @@ const ig: Record<TranslationKey, string> = {
   "overview.stepAudit": "Nyocha",
   "overview.stepAuditBody": "Ihe akaebe hash maka ọrụ ọ bụla",
   "overview.privacyTitle": "Ihe akaebe nzuzo na nsonye",
-  "overview.privacyDescription": "Iwu ị nwere ike igosi, ọ bụghị nkwa.",
+  "overview.privacyDescription": "Otu ihe nlele a si echekwa data gị.",
   "overview.privacy1Title": "Nkewa otu n'ime ajụjụ",
   "overview.privacy1Body":
     "Ajụjụ ihe omume na ihe akaebe ọ bụla dị n'otu nke onye na-ajụ. Ndekọ nke otu ọzọ na-eweghachi 404.",

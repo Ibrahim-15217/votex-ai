@@ -18,6 +18,8 @@ import {
   Card,
   CardHeader,
   EmptyState,
+  EnglishOnlyBadge,
+  ErrorState,
   Notice,
   PageHeader,
   Spinner,
@@ -48,7 +50,6 @@ import {
   type ResilienceSummary,
 } from "../lib/api";
 import { formatDateTime } from "../lib/format";
-import { useI18n } from "../lib/i18n";
 
 const CATEGORY_ORDER = [
   "governance",
@@ -295,7 +296,6 @@ function SummaryTile({
 
 export default function ResiliencePage() {
   const { user } = useAuth();
-  const { t } = useI18n();
   const isAnalyst = user?.role === "admin" || user?.role === "analyst";
 
   const [tab, setTab] = useState<"assessments" | "exercises">("assessments");
@@ -539,7 +539,6 @@ export default function ResiliencePage() {
     return (
       <div className="animate-rise space-y-4">
         <PageHeader
-          eyebrow="Phase 5 · Readiness"
           title="Resilience & simulation"
           description="Organisational readiness and exercise records are available to administrators and analysts."
         />
@@ -554,9 +553,9 @@ export default function ResiliencePage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow="Phase 5 · Readiness"
         title="Resilience & simulation"
         description="Score organisational readiness against a fixed 12-control questionnaire, track remediation, and rehearse a synthetic phishing triage without touching a real system."
+        badge={<EnglishOnlyBadge />}
         actions={
           <>
             <button
@@ -581,10 +580,6 @@ export default function ResiliencePage() {
         }
       />
 
-      <p className="rounded-lg border border-line/70 bg-surface/40 px-3.5 py-2.5 text-[10.5px] leading-relaxed text-muted">
-        {t("common.englishOnly")}
-      </p>
-
       {error && <Notice tone="error">{error}</Notice>}
       {feedback && <Notice tone="success">{feedback}</Notice>}
 
@@ -592,6 +587,23 @@ export default function ResiliencePage() {
         <Card className="flex items-center justify-center gap-3 py-16 text-sm text-muted">
           <Spinner className="text-brand" />
           Loading readiness workspace
+        </Card>
+      ) : error && !summary ? (
+        <Card>
+          <ErrorState
+            title="Readiness workspace unavailable"
+            body={error}
+            action={
+              <button
+                type="button"
+                onClick={() => setReloadKey((value) => value + 1)}
+                className={btnGhost}
+              >
+                <RefreshIcon className="h-4 w-4" />
+                Try again
+              </button>
+            }
+          />
         </Card>
       ) : (
         <>

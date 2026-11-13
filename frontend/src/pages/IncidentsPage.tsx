@@ -14,6 +14,7 @@ import {
 import {
   Card,
   EmptyState,
+  ErrorState,
   Notice,
   PageHeader,
   Spinner,
@@ -124,7 +125,6 @@ export default function IncidentsPage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow={t("queue.eyebrow")}
         title={t("queue.title")}
         description={isAnalyst ? t("queue.descriptionAnalyst") : t("queue.descriptionReporter")}
         actions={
@@ -221,13 +221,28 @@ export default function IncidentsPage() {
           )}
         </div>
 
-        {error && (
+        {error && data && (
           <div className="px-4 py-3">
             <Notice>{error}</Notice>
           </div>
         )}
 
-        {loading && !data ? (
+        {error && !data ? (
+          <ErrorState
+            title={t("common.unavailable")}
+            body={error}
+            action={
+              <button
+                type="button"
+                onClick={() => setReloadKey((value) => value + 1)}
+                className={btnGhost}
+              >
+                <RefreshIcon className="h-4 w-4" />
+                {t("common.retry")}
+              </button>
+            }
+          />
+        ) : loading && !data ? (
           <div className="space-y-2 p-4" aria-busy="true" aria-label={t("common.loading")}>
             {[0, 1, 2, 3, 4].map((row) => (
               <div key={row} className="h-14 animate-pulse rounded-lg bg-surface-2/60" />
@@ -254,6 +269,7 @@ export default function IncidentsPage() {
           />
         )}
 
+        {!(error && !data) && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line/70 px-4 py-3">
           <p className="inline-flex items-center gap-2 text-[10.5px] text-muted" aria-live="polite">
             <InboxIcon aria-hidden="true" className="h-3.5 w-3.5" />
@@ -290,6 +306,7 @@ export default function IncidentsPage() {
             </button>
           </div>
         </div>
+        )}
       </Card>
     </div>
   );

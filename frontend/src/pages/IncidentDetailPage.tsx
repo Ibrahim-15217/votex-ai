@@ -23,6 +23,7 @@ import {
 import {
   Card,
   CardHeader,
+  EnglishOnlyBadge,
   Notice,
   PriorityPill,
   RiskScore,
@@ -314,10 +315,6 @@ export default function IncidentDetailPage() {
         </div>
       )}
 
-      <p className="rounded-lg border border-line/70 bg-surface/40 px-3.5 py-2.5 text-[10.5px] leading-relaxed text-muted">
-        {t("common.englishOnly")}
-      </p>
-
       <header className="rounded-xl border border-line/80 bg-surface/50 p-5 shadow-panel backdrop-blur-sm sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
@@ -342,6 +339,7 @@ export default function IncidentDetailPage() {
                 <FileTextIcon className="h-3 w-3" />
                 {incident.evidence_count} evidence file{incident.evidence_count === 1 ? "" : "s"}
               </span>
+              <EnglishOnlyBadge />
             </div>
           </div>
 
@@ -679,7 +677,7 @@ export default function IncidentDetailPage() {
                 className="block w-full cursor-pointer rounded-lg border border-line bg-void/40 px-3 py-2 text-[10.5px] text-muted file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-brand/15 file:px-2.5 file:py-1.5 file:text-[10.5px] file:font-semibold file:text-brand hover:border-brand/30"
               />
               <p className="text-[9.5px] leading-relaxed text-muted/80">
-                PNG, JPEG, WebP, PDF, TXT or EML · 10 MB max. Content type and magic bytes are validated before storage.
+                PNG, JPEG, WebP, PDF, TXT or EML · 10 MB max. File type and content are checked before storage.
               </p>
               <button type="submit" className={btnGhostSmall} disabled={!file || busy === "evidence"}>
                 {busy === "evidence" ? <Spinner className="h-3.5 w-3.5" /> : <UploadIcon className="h-3.5 w-3.5" />}
@@ -689,7 +687,7 @@ export default function IncidentDetailPage() {
           </Card>
 
           <Card>
-            <CardHeader title="Integrity footer" />
+            <CardHeader title="Record integrity" />
             <div className="space-y-2 px-5 py-4 text-[10px] leading-relaxed text-muted/80">
               <p className="flex gap-2">
                 <CheckCircleIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success/80" />
@@ -697,7 +695,7 @@ export default function IncidentDetailPage() {
               </p>
               <p className="flex gap-2">
                 <UsersIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand/70" />
-                Tenant isolation is enforced in the database query layer, not only in this interface.
+                Tenant isolation is enforced by the service, not only in this interface.
               </p>
             </div>
           </Card>

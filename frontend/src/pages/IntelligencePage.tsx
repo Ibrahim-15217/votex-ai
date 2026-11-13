@@ -16,6 +16,8 @@ import {
   Card,
   CardHeader,
   EmptyState,
+  EnglishOnlyBadge,
+  ErrorState,
   IndicatorKindPill,
   Notice,
   PageHeader,
@@ -34,7 +36,6 @@ import {
   type IndicatorPage,
 } from "../lib/api";
 import { formatDateTime, relativeTime } from "../lib/format";
-import { useI18n } from "../lib/i18n";
 
 const KIND_FILTERS: Array<{ value: IndicatorKind | "all"; label: string }> = [
   { value: "all", label: "All kinds" },
@@ -55,7 +56,6 @@ const PAGE_SIZE = 20;
 
 export default function IntelligencePage() {
   const { user } = useAuth();
-  const { t } = useI18n();
   const isAnalyst = user?.role === "admin" || user?.role === "analyst";
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
@@ -69,10 +69,12 @@ export default function IntelligencePage() {
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [detail, setDetail] = useState<IndicatorDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebounced(query.trim()), 260);
@@ -118,7 +120,7 @@ export default function IntelligencePage() {
     return () => {
       active = false;
     };
-  }, [debounced, kind, page, isAnalyst]);
+  }, [debounced, kind, page, isAnalyst, reloadKey]);
 
   useEffect(() => {
     if (!selectedId) {
@@ -128,14 +130,18 @@ export default function IntelligencePage() {
     let active = true;
     setDetailLoading(true);
     setDetail(null);
+    setDetailError(null);
 
     api
       .indicator(selectedId)
       .then((value) => {
         if (active) setDetail(value);
       })
-      .catch(() => {
-        if (active) setDetail(null);
+      .catch((err: unknown) => {
+        if (active) {
+          setDetail(null);
+          setDetailError(err instanceof Error ? err.message : "Could not load correlated cases.");
+        }
       })
       .finally(() => {
         if (active) setDetailLoading(false);
@@ -177,7 +183,6 @@ export default function IntelligencePage() {
     return (
       <div className="animate-rise space-y-4">
         <PageHeader
-          eyebrow="Phase 3 · Threat intelligence"
           title="Indicator intelligence"
           description="Correlation is available to administrators and analysts in the response team."
         />
@@ -192,9 +197,9 @@ export default function IntelligencePage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow="Phase 3 · Correlation live"
         title="Indicator intelligence"
         description="Deterministic correlation of URLs, domains, IP addresses and file hashes across your organisation. Extraction never visits a link, and every result stays inside your tenant."
+        badge={<EnglishOnlyBadge />}
         actions={
           <button
             type="button"
@@ -208,13 +213,10 @@ export default function IntelligencePage() {
         }
       />
 
-      <p className="rounded-lg border border-line/70 bg-surface/40 px-3.5 py-2.5 text-[10.5px] leading-relaxed text-muted">
-        {t("common.englishOnly")}
-      </p>
-
       {feedback && <Notice tone="success">{feedback}</Notice>}
       {error && <Notice>{error}</Notice>}
 
+      {!(error && !data) && (
       <div className="grid gap-3 sm:grid-cols-3">
         <SummaryTile
           icon={<NetworkIcon className="h-4 w-4" />}
@@ -238,6 +240,7 @@ export default function IntelligencePage() {
           tone="text-success"
         />
       </div>
+      )}
 
       <Card>
         <div className="space-y-3 px-4 py-3.5 sm:px-5">
@@ -294,7 +297,7 @@ export default function IntelligencePage() {
                 >
                   {filter.label}
                   <span className={cn("font-mono text-[9px]", active ? "text-brand/80" : "text-muted/80")}>
-                    {count}
+                    {data ? count : "—"}
                   </span>
                 </button>
               );
@@ -321,6 +324,20 @@ export default function IntelligencePage() {
                 <div key={row} className="h-[68px] animate-pulse rounded-lg bg-surface-2/50" />
               ))}
             </div>
+          ) : error && !data ? (
+            <ErrorState
+              title="Indicators unavailable"
+              body={error}
+              action={
+                <button
+                  type="button"
+                  onClick={() => setReloadKey((value) => value + 1)}
+                  className={btnSubtle}
+                >
+                  Try again
+                </button>
+              }
+            />
           ) : !data || data.items.length === 0 ? (
             <EmptyState
               title="No indicators match this filter"
@@ -375,6 +392,7 @@ export default function IntelligencePage() {
             </ul>
           )}
 
+          {!(error && !data) && (
           <div className="flex items-center justify-between gap-2 border-t border-line/70 px-4 py-3">
             <span className="text-[10px] text-muted/80">
               Page {data?.page ?? 1} of {totalPages}
@@ -402,11 +420,13 @@ export default function IntelligencePage() {
               </button>
             </div>
           </div>
+          )}
         </Card>
 
         <IndicatorDetailPanel
           detail={detail}
           loading={detailLoading}
+          error={detailError}
           hasSelection={selectedId !== null}
         />
       </div>
@@ -417,10 +437,12 @@ export default function IntelligencePage() {
 function IndicatorDetailPanel({
   detail,
   loading,
+  error,
   hasSelection,
 }: {
   detail: IndicatorDetail | null;
   loading: boolean;
+  error: string | null;
   hasSelection: boolean;
 }) {
   if (!hasSelection) {
@@ -434,13 +456,24 @@ function IndicatorDetailPanel({
     );
   }
 
-  if (loading || !detail) {
+  if (loading) {
     return (
       <Card>
         <div className="flex min-h-[240px] items-center justify-center gap-2.5 text-xs text-muted">
           <Spinner className="text-brand" />
           Loading correlated cases
         </div>
+      </Card>
+    );
+  }
+
+  if (error || !detail) {
+    return (
+      <Card>
+        <ErrorState
+          title="Correlated cases unavailable"
+          body={error ?? "The selected indicator could not be loaded."}
+        />
       </Card>
     );
   }

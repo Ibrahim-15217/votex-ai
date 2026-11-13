@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AlertTriangleIcon, CheckCircleIcon } from "./icons";
+import { AlertTriangleIcon, CheckCircleIcon, InboxIcon } from "./icons";
 import type { IncidentStatus, Priority } from "../lib/api";
 import { indicatorKindLabel, statusLabel } from "../lib/format";
 import { useI18n, type TranslationKey } from "../lib/i18n";
@@ -178,6 +178,29 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center gap-3 px-6 py-14 text-center">
       <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface-2/60 text-muted">
+        <InboxIcon className="h-5 w-5" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-text">{title}</p>
+        <p className="mx-auto mt-1 max-w-sm text-xs leading-relaxed text-muted">{body}</p>
+      </div>
+      {action}
+    </div>
+  );
+}
+
+export function ErrorState({
+  title,
+  body,
+  action,
+}: {
+  title: string;
+  body: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 px-6 py-14 text-center">
+      <span className="grid h-11 w-11 place-items-center rounded-xl border border-danger/25 bg-danger/10 text-danger">
         <AlertTriangleIcon className="h-5 w-5" />
       </span>
       <div>
@@ -186,6 +209,22 @@ export function EmptyState({
       </div>
       {action}
     </div>
+  );
+}
+
+export function EnglishOnlyBadge({ className }: { className?: string }) {
+  const { t } = useI18n();
+
+  return (
+    <span
+      title={t("common.englishOnly")}
+      className={cn(
+        "inline-flex items-center rounded-full border border-line bg-surface/60 px-2.5 py-1 text-[10px] font-medium text-muted",
+        className,
+      )}
+    >
+      {t("common.englishOnlyBadge")}
+    </span>
   );
 }
 
@@ -226,27 +265,22 @@ export function VerifiedPill({ valid }: { valid: boolean }) {
 }
 
 export function PageHeader({
-  eyebrow,
   title,
   description,
   actions,
+  badge,
 }: {
-  eyebrow?: string;
   title: string;
   description?: string;
   actions?: ReactNode;
+  badge?: ReactNode;
 }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        {eyebrow && (
-          <p className="mb-2 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand/90">
-            <span className="h-px w-6 bg-brand/70" />
-            {eyebrow}
-          </p>
-        )}
+      <div className="min-w-0">
         <h1 className="text-2xl font-semibold tracking-tight text-text sm:text-[1.7rem]">{title}</h1>
         {description && <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{description}</p>}
+        {badge && <div className="mt-2.5 flex flex-wrap items-center gap-2">{badge}</div>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
     </div>

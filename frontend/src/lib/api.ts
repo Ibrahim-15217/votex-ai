@@ -30,6 +30,13 @@ export type LoginResponse = {
   user: User;
 };
 
+export type DemoTelemetry = {
+  synthetic: boolean;
+  incidents: number;
+  indicators: number;
+  audit_entries: number;
+};
+
 export type IncidentStatus =
   | "submitted"
   | "under_review"
@@ -497,7 +504,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     response = await fetch(`${API_BASE}${path}`, { ...init, headers });
   } catch {
     throw new ApiError(
-      "Cannot reach the Votex API. Check that the backend is running on port 8000.",
+      "Cannot reach the Votex service. Check your connection and try again.",
       0,
     );
   }
@@ -528,6 +535,8 @@ function queryString(params: Record<string, string | number | boolean | undefine
 }
 
 export const api = {
+  demoTelemetry: () => request<DemoTelemetry>("/demo/telemetry"),
+
   login: (email: string, password: string) =>
     request<LoginResponse>("/auth/login", {
       method: "POST",

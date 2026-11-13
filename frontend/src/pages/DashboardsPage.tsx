@@ -26,7 +26,8 @@ import {
 import {
   Card,
   CardHeader,
-  EmptyState,
+  EnglishOnlyBadge,
+  ErrorState,
   IndicatorKindPill,
   Notice,
   PageHeader,
@@ -37,7 +38,6 @@ import {
 } from "../components/ui";
 import { api, downloadCsv, type DashboardResponse } from "../lib/api";
 import { formatDateTime, formatHours } from "../lib/format";
-import { useI18n } from "../lib/i18n";
 
 const CATEGORY_TONES: Record<string, string> = {
   phishing: "bg-brand",
@@ -72,7 +72,6 @@ const STATUS_TONES: Record<string, string> = {
 
 export default function DashboardsPage() {
   const { user } = useAuth();
-  const { t } = useI18n();
   const isAnalyst = user?.role === "admin" || user?.role === "analyst";
   const isAdmin = user?.role === "admin";
 
@@ -135,7 +134,6 @@ export default function DashboardsPage() {
     return (
       <div className="animate-rise space-y-4">
         <PageHeader
-          eyebrow="Phase 3 · Situational awareness"
           title="Threat dashboards"
           description="Aggregate dashboards are available to administrators and analysts in the response team."
         />
@@ -150,9 +148,9 @@ export default function DashboardsPage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow="Phase 3 · Situational awareness"
         title="Threat dashboards"
-        description="One organisation view with exact counts, and a national view where every small cell is suppressed before it leaves the server."
+        description="One organisation view with exact counts, and a national view where every small cell is suppressed before any count is returned."
+        badge={<EnglishOnlyBadge />}
         actions={
           <>
             <button
@@ -176,10 +174,6 @@ export default function DashboardsPage() {
           </>
         }
       />
-
-      <p className="rounded-lg border border-line/70 bg-surface/40 px-3.5 py-2.5 text-[10.5px] leading-relaxed text-muted">
-        {t("common.englishOnly")}
-      </p>
 
       <div
         role="tablist"
@@ -214,9 +208,19 @@ export default function DashboardsPage() {
         <DashboardSkeleton />
       ) : !data || !summary ? (
         <Card>
-          <EmptyState
+          <ErrorState
             title="Dashboard unavailable"
-            body="The aggregate view could not be loaded. Refresh to try again."
+            body={error ?? "The aggregate view could not be loaded."}
+            action={
+              <button
+                type="button"
+                onClick={() => setReloadKey((value) => value + 1)}
+                className={btnGhost}
+              >
+                <RefreshIcon className="h-4 w-4" />
+                Try again
+              </button>
+            }
           />
         </Card>
       ) : (
@@ -387,8 +391,8 @@ export default function DashboardsPage() {
           <div className="flex flex-wrap items-center gap-2 rounded-xl border border-line/70 bg-surface/40 px-4 py-3">
             <ShieldCheckIcon className="h-4 w-4 text-success/80" />
             <p className="text-[10px] leading-relaxed text-muted/80">
-              Aggregates are computed in the query layer. {national
-                ? "National cells smaller than k = 5 are returned as null and never serialised into CSV."
+              Privacy rules are applied before any figure is returned. {national
+                ? "National cells smaller than k = 5 are withheld and left blank in CSV exports."
                 : "Organisation counts are exact and visible only to your tenant."}
             </p>
           </div>

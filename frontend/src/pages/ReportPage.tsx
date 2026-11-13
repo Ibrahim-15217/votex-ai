@@ -139,7 +139,6 @@ export default function ReportPage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow={t("report.eyebrow")}
         title={t("report.title")}
         description={t("report.description")}
       />

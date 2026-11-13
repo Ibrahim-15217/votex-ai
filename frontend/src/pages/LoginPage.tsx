@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthContext";
@@ -14,6 +14,7 @@ import {
   ShieldCheckIcon,
 } from "../components/icons";
 import { Spinner } from "../components/ui";
+import { api, type DemoTelemetry } from "../lib/api";
 import { useI18n } from "../lib/i18n";
 
 const DEMO_PASSWORD = "VotexDemo!23";
@@ -36,6 +37,22 @@ export default function LoginPage() {
   const [notice, setNotice] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [telemetry, setTelemetry] = useState<DemoTelemetry | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    api
+      .demoTelemetry()
+      .then((value) => {
+        if (active) setTelemetry(value);
+      })
+      .catch(() => {
+        if (active) setTelemetry(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   function changeLanguage(next: typeof lang) {
     setLang(next);
@@ -114,10 +131,6 @@ export default function LoginPage() {
       <header className="relative z-10 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8 lg:px-10 lg:py-7">
         <Logo />
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <span className="hidden items-center gap-2 rounded-full border border-success/25 bg-success/[0.08] px-3 py-1.5 text-[11px] font-medium text-success sm:inline-flex">
-            <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-success" />
-            {t("login.status")}
-          </span>
           <LanguageSwitcher
             lang={lang}
             onChange={changeLanguage}
@@ -133,14 +146,9 @@ export default function LoginPage() {
       >
         {/* Narrative column */}
         <section aria-labelledby="hero-title" className="animate-rise">
-          <p className="inline-flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand/90 sm:text-[11px]">
-            <span className="h-px w-7 bg-brand/70" />
-            {t("login.track")}
-          </p>
-
           <h1
             id="hero-title"
-            className="mt-5 max-w-2xl text-balance text-[2.1rem] font-semibold leading-[1.06] tracking-[-0.02em] text-text sm:text-5xl lg:text-[3.4rem]"
+            className="max-w-2xl text-balance text-[2.1rem] font-semibold leading-[1.06] tracking-[-0.02em] text-text sm:text-5xl lg:text-[3.4rem]"
           >
             {t("login.heroTitleA")}{" "}
             <span className="bg-gradient-to-r from-brand via-brand-2 to-violet bg-clip-text text-transparent">
@@ -171,12 +179,23 @@ export default function LoginPage() {
                 <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-brand" />
                 {t("login.signalTitle")}
               </span>
-              <span className="font-mono text-[10px] text-muted/80">{t("login.version")}</span>
             </div>
             <dl className="grid grid-cols-3 divide-x divide-line/70">
-              <Metric label={t("login.metricReports")} value="128" tone="text-text" />
-              <Metric label={t("login.metricLinked")} value="09" tone="text-brand" />
-              <Metric label={t("login.metricAudit")} value="100%" tone="text-success" />
+              <Metric
+                label={t("login.metricReports")}
+                value={telemetry ? String(telemetry.incidents) : "—"}
+                tone="text-text"
+              />
+              <Metric
+                label={t("login.metricLinked")}
+                value={telemetry ? String(telemetry.indicators) : "—"}
+                tone="text-brand"
+              />
+              <Metric
+                label={t("login.metricAudit")}
+                value={telemetry ? String(telemetry.audit_entries) : "—"}
+                tone="text-success"
+              />
             </dl>
             <p className="border-t border-line/70 px-4 py-2 text-[10px] text-muted/80">
               {t("login.syntheticPreview")}
@@ -197,7 +216,6 @@ export default function LoginPage() {
                   <LockIcon className="h-3.5 w-3.5 text-brand" />
                   {t("login.secureAccess")}
                 </span>
-                <span className="font-mono tracking-[0.12em] text-success">TLS · DEMO</span>
               </div>
 
               <div className="mt-6 flex items-start gap-3">
@@ -277,14 +295,7 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between gap-3">
-                  <label className="inline-flex cursor-pointer items-center gap-2 text-xs text-muted">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-line bg-void accent-brand"
-                    />
-                    {t("login.remember")}
-                  </label>
+                <div className="flex items-center justify-end gap-3">
                   <button
                     type="button"
                     onClick={() => setNotice(true)}

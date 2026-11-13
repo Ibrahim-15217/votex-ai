@@ -19,7 +19,10 @@ const yo: Record<TranslationKey, string> = {
   "common.allStatuses": "Gbogbo ipò",
   "common.allPriorities": "Gbogbo ipò pàtàkì",
   "common.englishOnly":
-    "Àwọn àkọsílẹ̀ ìṣẹ̀lẹ̀, àlàyé AI àti pátákó olùyẹ̀wò wà ní èdè Gẹ̀ẹ́sì nínú àwòṣe yìí. Ìtọ́sọ́nà, gbígba ìròyìn àti àtòjọ wà ní gbogbo èdè mẹ́rin.",
+    "Àwọn àkọsílẹ̀ ìṣẹ̀lẹ̀, àlàyé AI àti pátákó olùyẹ̀wò wà ní èdè Gẹ̀ẹ́sì nínú àwòṣe yìí.",
+  "common.englishOnlyBadge": "Gẹ̀ẹ́sì · àkọsílẹ̀ ìṣẹ̀lẹ̀",
+  "common.retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+  "common.unavailable": "Kò sí",
 
   "a11y.primaryNav": "Ìtọ́sọ́nà àkọ́kọ́",
   "a11y.openNav": "Ṣí ìtọ́sọ́nà",
@@ -27,6 +30,7 @@ const yo: Record<TranslationKey, string> = {
   "a11y.signOut": "Jáde",
   "a11y.languageGroup": "Yan èdè ìbánisọ̀rọ̀",
   "a11y.routeAnnouncement": "Ojú-ìwé {page} ti ṣí",
+  "a11y.breadcrumb": "Ibùdó",
   "a11y.chartTrend": "Àwòrán ìròyìn ọjọ́ 30 sẹ́yìn",
 
   "nav.overview": "Àkópọ̀",
@@ -47,7 +51,7 @@ const yo: Record<TranslationKey, string> = {
   "page.dashboards.eyebrow": "Ìmọ̀ ipò",
   "page.resilience.title": "Ìfaradà àti àfarawé",
   "page.resilience.eyebrow": "Ìmúrasílẹ̀",
-  "page.report.title": "Fi ìṣẹ̀lẹ̀ ránṣẹ́",
+  "page.report.title": "Fi ewu ránṣẹ́",
   "page.report.eyebrow": "Gbígba ìròyìn",
   "page.audit.title": "Àyẹ̀wò àkọsílẹ̀",
   "page.audit.eyebrow": "Ìdánilójú",
@@ -62,7 +66,6 @@ const yo: Record<TranslationKey, string> = {
   "shell.evidenceHash": "Hash SHA-256 fún ẹ̀rí",
   "shell.kAnon": "k ≥ 5 nínú àkópọ̀ orílẹ̀-èdè",
   "shell.offline": "Kì í ṣí ìjápọ̀",
-  "shell.phase": "Ìpele 5 · Ìfaradà àti àfarawé",
   "shell.footerHackathon": "Votex AI · #AI4Elections Hackathon 2026–2027 · Ẹ̀ka 4",
   "shell.footerDisclaimer":
     "Ìsọfúnni àròyé nìkan · Kò ní ìbáṣepọ̀ pẹ̀lú INEC tàbí alábàákẹ́gbẹ́ kankan",
@@ -71,8 +74,6 @@ const yo: Record<TranslationKey, string> = {
   "role.analyst": "Olùyẹ̀wò",
   "role.reporter": "Olùròyìn",
 
-  "login.status": "Ẹ̀rọ ti ṣetán",
-  "login.track": "Ẹ̀ka 04 · Ààbò Ẹ̀rọ Ìdìbò",
   "login.heroTitleA": "Ààbò ẹ̀rọ ìdìbò,",
   "login.heroTitleB": "ní ìṣọ̀kan.",
   "login.heroSubtitle":
@@ -84,11 +85,10 @@ const yo: Record<TranslationKey, string> = {
   "login.feature3Title": "Àṣírí tí a dáàbò bo",
   "login.feature3Body": "Ìpínyà ẹgbẹ́ tó péye àti k ≥ 5 nínú àkópọ̀ orílẹ̀-èdè.",
   "login.signalTitle": "Àwòrán iṣẹ́",
-  "login.syntheticPreview": "Ìsọfúnni àròyé · àròyé nìkan",
-  "login.metricReports": "Ìròyìn tí a yẹ̀wò",
+  "login.syntheticPreview": "Ìsọfúnni àròyé ní tààrà · àròyé nìkan",
+  "login.metricReports": "Ìròyìn",
   "login.metricLinked": "Àmì tí a so pọ̀",
   "login.metricAudit": "Ẹ̀wọ̀n àyẹ̀wò",
-  "login.version": "v0.5.0 · Ìpele 5",
   "login.signInTitle": "Wọ inú ilé iṣẹ́",
   "login.signInSubtitle": "Lo àkọsílẹ̀ ẹgbẹ́ tí a yàn fún ọ.",
   "login.secureAccess": "Ìwọlé ààbò",
@@ -98,7 +98,6 @@ const yo: Record<TranslationKey, string> = {
   "login.passwordPlaceholder": "Tẹ ọ̀rọ̀ aṣínà rẹ",
   "login.showPassword": "Fi ọ̀rọ̀ aṣínà hàn",
   "login.hidePassword": "Fi ọ̀rọ̀ aṣínà pamọ́",
-  "login.remember": "Rántí mi",
   "login.forgot": "Ọ̀rọ̀ aṣínà gbàgbé?",
   "login.signIn": "Wọlé",
   "login.signingIn": "Ń wọlé…",
@@ -142,7 +141,7 @@ const yo: Record<TranslationKey, string> = {
   "report.descriptionPlaceholder":
     "Kí ni o gbà tàbí rí? Ta ni a fọwọ́ kàn? Ìgbésẹ̀ wo ni a ti gbé? Má ṣe fi ọ̀rọ̀ aṣínà, OTP tàbí ìsọfúnni ìdánimọ̀ olùdìbò kún un.",
   "report.descriptionCount": "{count} / 10,000",
-  "report.privacyNote": "A ń fi pamọ́ fún ẹgbẹ́ rẹ nìkan · àkọsílẹ̀ àròyé",
+  "report.privacyNote": "A ń fi hàn fún ẹgbẹ́ rẹ nìkan · ìsọfúnni àròyé",
   "report.submit": "Fi ìròyìn ránṣẹ́",
   "report.submitting": "Ń fi ìròyìn ránṣẹ́…",
   "report.submitError": "A kò lè fi ìròyìn ránṣẹ́.",
@@ -266,6 +265,7 @@ const yo: Record<TranslationKey, string> = {
   "overview.countersEmpty": "Ìṣirò yóò hàn nígbà tí ìròyìn bá dé.",
   "overview.auditTitle": "Ẹ̀wọ̀n àyẹ̀wò",
   "overview.auditDescription": "Ẹ̀wọ̀n SHA-256 tí a kò lè yọ.",
+  "overview.auditUnavailable": "A kò lè ṣàyẹ̀wò ẹ̀wọ̀n àyẹ̀wò.",
   "overview.entriesChecked": "Àkọsílẹ̀ tí a ṣàyẹ̀wò",
   "overview.latestHash": "Hash tuntun",
   "overview.inspectChain": "Ṣàyẹ̀wò ẹ̀wọ̀n",
@@ -289,7 +289,7 @@ const yo: Record<TranslationKey, string> = {
   "overview.stepAudit": "Àyẹ̀wò",
   "overview.stepAuditBody": "Ẹ̀rí hash fún gbogbo ìgbésẹ̀",
   "overview.privacyTitle": "Ẹ̀rí àṣírí àti ìkópa",
-  "overview.privacyDescription": "Àwọn ìlànà tí o lè tọ́ka sí, kì í ṣe àdéhùn.",
+  "overview.privacyDescription": "Bí àwòṣe yìí ṣe ń dáàbò bo dátà rẹ.",
   "overview.privacy1Title": "Ìpínyà ẹgbẹ́ nínú ìwádìí",
   "overview.privacy1Body":
     "Gbogbo ìwádìí ìṣẹ̀lẹ̀ àti ẹ̀rí ń dúró fún ẹgbẹ́ olùbéèrè. Àkọsílẹ̀ ẹgbẹ́ mìíràn ń dá 404 padà.",

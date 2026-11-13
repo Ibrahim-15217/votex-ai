@@ -19,7 +19,10 @@ const ha: Record<TranslationKey, string> = {
   "common.allStatuses": "Duk matsayai",
   "common.allPriorities": "Duk fifiko",
   "common.englishOnly":
-    "Bayanan lamurra, bayanin AI da allunan masu bincike suna nan cikin Turanci a wannan samfurin. Menu, karɓar rahoto da jeri suna cikin duk harsuna huɗu.",
+    "Bayanan lamurra, bayanin AI da allunan masu bincike suna cikin Turanci a wannan samfurin.",
+  "common.englishOnlyBadge": "Turanci · bayanan lamurra",
+  "common.retry": "Sake gwadawa",
+  "common.unavailable": "Ba ya samuwa",
 
   "a11y.primaryNav": "Babban menu",
   "a11y.openNav": "Buɗe menu",
@@ -27,6 +30,7 @@ const ha: Record<TranslationKey, string> = {
   "a11y.signOut": "Fita",
   "a11y.languageGroup": "Zaɓi harshen dubawa",
   "a11y.routeAnnouncement": "An buɗe shafin {page}",
+  "a11y.breadcrumb": "Wuri",
   "a11y.chartTrend": "Jadawalin rahotanni na kwanaki 30 da suka wuce",
 
   "nav.overview": "Bayani",
@@ -47,7 +51,7 @@ const ha: Record<TranslationKey, string> = {
   "page.dashboards.eyebrow": "Sanin halin da ake ciki",
   "page.resilience.title": "Juriya da simulation",
   "page.resilience.eyebrow": "Shiri",
-  "page.report.title": "Kai rahoton lamari",
+  "page.report.title": "Kai rahoton barazana",
   "page.report.eyebrow": "Karɓar rahoto",
   "page.audit.title": "Tarihin bincike",
   "page.audit.eyebrow": "Tabbatarwa",
@@ -62,7 +66,6 @@ const ha: Record<TranslationKey, string> = {
   "shell.evidenceHash": "Hash na SHA-256 na shaida",
   "shell.kAnon": "k ≥ 5 a ƙididdigar ƙasa",
   "shell.offline": "Ba ya buɗe hanyar haɗi",
-  "shell.phase": "Mataki na 5 · Juriya da simulation",
   "shell.footerHackathon": "Votex AI · #AI4Elections Hackathon 2026–2027 · Rukuni na 4",
   "shell.footerDisclaimer": "Bayanan ƙirƙira kawai · Ba shi da alaƙa da INEC ko wani abokin hulɗa",
 
@@ -70,8 +73,6 @@ const ha: Record<TranslationKey, string> = {
   "role.analyst": "Mai bincike",
   "role.reporter": "Mai rahoto",
 
-  "login.status": "Tsarin yana shirye",
-  "login.track": "Rukuni na 04 · Tsaron Yanar Gizo na Zaɓe",
   "login.heroTitleA": "Tsaron yanar gizo na zaɓe,",
   "login.heroTitleB": "cikin haɗin kai.",
   "login.heroSubtitle":
@@ -83,11 +84,10 @@ const ha: Record<TranslationKey, string> = {
   "login.feature3Title": "Sirri a kiyaye",
   "login.feature3Body": "Keɓewar ƙungiya tsantsa da k ≥ 5 a ƙididdigar ƙasa.",
   "login.signalTitle": "Nunin aiki",
-  "login.syntheticPreview": "Bayanan gwaji · na ƙirƙira kawai",
-  "login.metricReports": "Rahotannin da aka duba",
+  "login.syntheticPreview": "Bayanan gwaji kai tsaye · na ƙirƙira kawai",
+  "login.metricReports": "Rahotanni",
   "login.metricLinked": "Alamomi masu alaƙa",
   "login.metricAudit": "Sarkar tarihi",
-  "login.version": "v0.5.0 · Mataki na 5",
   "login.signInTitle": "Shiga cikin dakunan aiki",
   "login.signInSubtitle": "Yi amfani da asusun ƙungiyar da aka ba ka.",
   "login.secureAccess": "Shiga amintacce",
@@ -97,7 +97,6 @@ const ha: Record<TranslationKey, string> = {
   "login.passwordPlaceholder": "Shigar da kalmar sirri",
   "login.showPassword": "Nuna kalmar sirri",
   "login.hidePassword": "Boye kalmar sirri",
-  "login.remember": "Ka tuna da ni",
   "login.forgot": "An manta kalmar sirri?",
   "login.signIn": "Shiga",
   "login.signingIn": "Ana shiga…",
@@ -140,7 +139,7 @@ const ha: Record<TranslationKey, string> = {
   "report.descriptionPlaceholder":
     "Me ka karɓa ko ka gani? Wanene aka yi niyya? Wane mataki aka riga an ɗauka? Kada ka haɗa kalmar sirri, OTP ko bayanan ainihi na mai jefa ƙuri'a.",
   "report.descriptionCount": "{count} / 10,000",
-  "report.privacyNote": "Ana adana shi ga ƙungiyarka kawai · asusun gwaji na ƙirƙira",
+  "report.privacyNote": "Ana gani ga ƙungiyarka kawai · bayanan ƙirƙira",
   "report.submit": "Aika rahoto",
   "report.submitting": "Ana aika rahoto…",
   "report.submitError": "Ba a iya aika rahoton ba.",
@@ -258,6 +257,7 @@ const ha: Record<TranslationKey, string> = {
   "overview.countersEmpty": "Ƙididdiga na bayyana idan rahotanni sun iso.",
   "overview.auditTitle": "Sarkar tarihi",
   "overview.auditDescription": "Sarkar SHA-256 da ba a iya gogewa.",
+  "overview.auditUnavailable": "Ba a iya tabbatar da sarkar tarihi ba.",
   "overview.entriesChecked": "Rikodin da aka duba",
   "overview.latestHash": "Sabon hash",
   "overview.inspectChain": "Duba sarkar",
@@ -281,7 +281,7 @@ const ha: Record<TranslationKey, string> = {
   "overview.stepAudit": "Bita",
   "overview.stepAuditBody": "Tabbacin hash ga kowane aiki",
   "overview.privacyTitle": "Shaidar sirri da haɗa kowa",
-  "overview.privacyDescription": "Ka'idoji da za ka iya nunawa, ba alkawura ba.",
+  "overview.privacyDescription": "Yadda samfurin ke kare bayananka.",
   "overview.privacy1Title": "Keɓewar ƙungiya a cikin bincike",
   "overview.privacy1Body":
     "Kowane binciken lamari da shaida yana iyakance ga ƙungiyar mai tambaya. Rikodin waje yana dawo da 404.",

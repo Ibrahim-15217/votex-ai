@@ -6,6 +6,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
 import {
   ActivityIcon,
+  ChevronRightIcon,
   InboxIcon,
   LayersIcon,
   LogOutIcon,
@@ -20,16 +21,14 @@ import { cn } from "./ui";
 import { initials } from "../lib/format";
 import { useI18n, type TranslationKey } from "../lib/i18n";
 
-type PageKey = { title: TranslationKey; eyebrow: TranslationKey };
-
-const pageTitles: Record<string, PageKey> = {
-  "/": { title: "page.overview.title", eyebrow: "page.overview.eyebrow" },
-  "/incidents": { title: "page.incidents.title", eyebrow: "page.incidents.eyebrow" },
-  "/intelligence": { title: "page.intelligence.title", eyebrow: "page.intelligence.eyebrow" },
-  "/dashboards": { title: "page.dashboards.title", eyebrow: "page.dashboards.eyebrow" },
-  "/resilience": { title: "page.resilience.title", eyebrow: "page.resilience.eyebrow" },
-  "/report": { title: "page.report.title", eyebrow: "page.report.eyebrow" },
-  "/audit": { title: "page.audit.title", eyebrow: "page.audit.eyebrow" },
+const pageTitles: Record<string, TranslationKey> = {
+  "/": "page.overview.title",
+  "/incidents": "page.incidents.title",
+  "/intelligence": "page.intelligence.title",
+  "/dashboards": "page.dashboards.title",
+  "/resilience": "page.resilience.title",
+  "/report": "page.report.title",
+  "/audit": "page.audit.title",
 };
 
 const navItems: Array<{
@@ -74,15 +73,11 @@ export function AppShell() {
 
   const detail =
     /^\/incidents\/[^/]+$/.test(location.pathname) && location.pathname !== "/incidents";
-  const page = detail
-    ? { title: "page.detail.title" as TranslationKey, eyebrow: "page.detail.eyebrow" as TranslationKey }
-    : (pageTitles[location.pathname] ?? {
-        title: "page.fallback.title" as TranslationKey,
-        eyebrow: "page.fallback.eyebrow" as TranslationKey,
-      });
+  const page: TranslationKey = detail
+    ? "page.detail.title"
+    : (pageTitles[location.pathname] ?? "page.fallback.title");
 
-  const pageTitle = t(page.title);
-  const pageEyebrow = t(page.eyebrow);
+  const pageTitle = t(page);
 
   useEffect(() => {
     document.title = `${pageTitle} · Votex AI`;
@@ -229,10 +224,14 @@ export function AppShell() {
             </button>
 
             <div className="min-w-0 flex-1">
-              <p className="text-[9.5px] font-semibold uppercase tracking-[0.18em] text-muted">
-                {pageEyebrow}
-              </p>
-              <p className="truncate text-sm font-semibold text-text">{pageTitle}</p>
+              <nav
+                aria-label={t("a11y.breadcrumb")}
+                className="flex min-w-0 items-center gap-1.5 text-[11px]"
+              >
+                <span className="truncate text-muted">{user.organisation.name}</span>
+                <ChevronRightIcon aria-hidden="true" className="h-3 w-3 shrink-0 text-muted/50" />
+                <span className="truncate font-medium text-text">{pageTitle}</span>
+              </nav>
             </div>
 
             <LanguageSwitcher
@@ -240,14 +239,6 @@ export function AppShell() {
               onChange={setLang}
               label={t("a11y.languageGroup")}
             />
-
-            <span className="hidden items-center gap-2 rounded-full border border-success/25 bg-success/[0.08] px-3 py-1.5 text-[10.5px] font-medium text-success xl:inline-flex">
-              <span className="h-1.5 w-1.5 animate-breathe rounded-full bg-success" />
-              {t("shell.phase")}
-            </span>
-            <span className="hidden rounded-full border border-line bg-surface/60 px-3 py-1.5 font-mono text-[10px] text-muted lg:inline-flex">
-              {user.organisation.slug}
-            </span>
           </div>
         </header>
 

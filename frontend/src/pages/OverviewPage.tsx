@@ -103,12 +103,16 @@ export default function OverviewPage() {
   const [verification, setVerification] = useState<AuditVerifyResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const isAnalyst = user?.role === "admin" || user?.role === "analyst";
 
   useEffect(() => {
     let active = true;
     setLoading(true);
+    setError(null);
+    setVerificationError(null);
 
     const tasks: Promise<unknown>[] = [
       api.stats().then((value) => active && setStats(value)),
@@ -119,7 +123,13 @@ export default function OverviewPage() {
         api
           .verifyAudit()
           .then((value) => active && setVerification(value))
-          .catch(() => undefined),
+          .catch((err: unknown) => {
+            if (active) {
+              setVerificationError(
+                err instanceof Error ? err.message : t("overview.auditUnavailable"),
+              );
+            }
+          }),
       );
     }
 
@@ -134,14 +144,13 @@ export default function OverviewPage() {
     return () => {
       active = false;
     };
-  }, [isAnalyst, t]);
+  }, [isAnalyst, t, reloadKey]);
 
   const firstName = user?.full_name.split(" ")[0] ?? "";
 
   return (
     <div className="animate-rise space-y-6">
       <PageHeader
-        eyebrow={t("shell.phase")}
         title={`${t(greetingKey())}, ${firstName}`}
         description={t("overview.description")}
         actions={
@@ -174,7 +183,9 @@ export default function OverviewPage() {
           note={
             stats
               ? t("overview.statOpenNote", { count: stats.last_7_days })
-              : t("overview.statOpenLoading")
+              : error
+                ? t("common.unavailable")
+                : t("overview.statOpenLoading")
           }
           tone="text-brand"
         />
@@ -208,12 +219,38 @@ export default function OverviewPage() {
             verification
               ? t("overview.statAuditEntries", { count: verification.entries_checked })
               : isAnalyst
-                ? t("overview.statAuditVerifying")
+                ? verificationError
+                  ? t("common.unavailable")
+                  : t("overview.statAuditVerifying")
                 : t("overview.statAuditAnalystOnly")
           }
-          tone={verification ? (verification.valid ? "text-success" : "text-danger") : "text-muted"}
+          tone={
+            verification
+              ? verification.valid
+                ? "text-success"
+                : "text-danger"
+              : verificationError
+                ? "text-danger"
+                : "text-muted"
+          }
         />
       </div>
+
+      {verificationError && (
+        <div
+          role="alert"
+          className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-warning/25 bg-warning/[0.08] px-3 py-2.5 text-[11.5px] leading-relaxed text-warning"
+        >
+          <span>{t("overview.auditUnavailable")}</span>
+          <button
+            type="button"
+            onClick={() => setReloadKey((value) => value + 1)}
+            className="font-semibold underline underline-offset-2 transition hover:text-warning/80"
+          >
+            {t("common.retry")}
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <Card>
@@ -236,6 +273,8 @@ export default function OverviewPage() {
                 <div key={row} className="h-12 animate-pulse rounded-lg bg-surface-2/60" />
               ))}
             </div>
+          ) : error && recent.length === 0 ? (
+            <div className="px-5 py-10 text-center text-xs text-muted">{t("common.loadError")}</div>
           ) : recent.length === 0 ? (
             <div className="px-5 py-10 text-center text-xs text-muted">
               {t("overview.noIncidents")}{" "}
@@ -326,6 +365,19 @@ export default function OverviewPage() {
                       <ArrowRightIcon aria-hidden="true" className="h-3.5 w-3.5" />
                     </Link>
                   </>
+                ) : verificationError ? (
+                  <div className="py-3">
+                    <p className="text-[11.5px] leading-relaxed text-muted">
+                      {t("overview.auditUnavailable")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setReloadKey((value) => value + 1)}
+                      className="mt-2 rounded text-[11px] font-semibold text-brand transition hover:text-brand/80"
+                    >
+                      {t("common.retry")}
+                    </button>
+                  </div>
                 ) : (
                   <div className="flex items-center gap-2 py-4 text-[11.5px] text-muted">
                     <Spinner className="text-brand" />

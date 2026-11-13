@@ -1118,7 +1118,7 @@ def seed_resilience_demo() -> bool:
                     FindingUpdate(
                         remediation_status="resolved",
                         owner="Response team",
-                        note="Closed during the demonstration data setup.",
+                        note="Closed by the response team after the follow-up review.",
                     ),
                 )
 
@@ -1159,9 +1159,9 @@ def seed_resilience_demo() -> bool:
         for task in exercise.tasks:
             status = "done" if task.sequence <= 5 else "skipped"
             notes = (
-                "Recorded by the demonstration analyst during the synthetic run."
+                "Completed by the response team during the exercise."
                 if status == "done"
-                else "Skipped because the synthetic scenario ended at the decision note."
+                else "Deferred when the exercise was closed at the decision note."
             )
             resilience_service.update_exercise_task(
                 db,

@@ -16,6 +16,8 @@ import {
   Card,
   CardHeader,
   EmptyState,
+  EnglishOnlyBadge,
+  ErrorState,
   Notice,
   PageHeader,
   Spinner,
@@ -26,7 +28,6 @@ import {
 } from "../components/ui";
 import { api, type AuditPage as AuditPageData, type AuditVerifyResult } from "../lib/api";
 import { formatDateTime, humanise, shortHash } from "../lib/format";
-import { useI18n } from "../lib/i18n";
 
 const actionOptions = [
   ["", "All actions"],
@@ -46,11 +47,11 @@ const actionOptions = [
 
 export default function AuditPage() {
   const { user } = useAuth();
-  const { t } = useI18n();
   const isAnalyst = user?.role === "admin" || user?.role === "analyst";
 
   const [data, setData] = useState<AuditPageData | null>(null);
   const [verification, setVerification] = useState<AuditVerifyResult | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [verifying, setVerifying] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,12 +87,19 @@ export default function AuditPage() {
   useEffect(() => {
     if (!isAnalyst) return;
     let active = true;
+    setVerificationError(null);
     api
       .verifyAudit()
       .then((value) => {
         if (active) setVerification(value);
       })
-      .catch(() => undefined);
+      .catch((err: unknown) => {
+        if (active) {
+          setVerificationError(
+            err instanceof Error ? err.message : "The audit chain could not be verified.",
+          );
+        }
+      });
     return () => {
       active = false;
     };
@@ -101,6 +109,7 @@ export default function AuditPage() {
     setVerifying(true);
     setError(null);
     setNotice(null);
+    setVerificationError(null);
     try {
       const result = await api.verifyAudit();
       setVerification(result);
@@ -110,7 +119,7 @@ export default function AuditPage() {
           : `Verification failed at entry ${result.first_invalid_id}.`,
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Verification failed.");
+      setVerificationError(err instanceof Error ? err.message : "Verification failed.");
     } finally {
       setVerifying(false);
     }
@@ -129,7 +138,7 @@ export default function AuditPage() {
   if (!isAnalyst) {
     return (
       <div className="animate-rise space-y-4">
-        <PageHeader eyebrow="Integrity" title="Audit trail" description="The audit chain is available to administrators and analysts." />
+        <PageHeader title="Audit trail" description="The audit chain is available to administrators and analysts." />
         <Notice>
           Your role can submit and follow reports, but cannot browse the organisation audit trail. Your actions are still recorded there.
         </Notice>
@@ -146,9 +155,9 @@ export default function AuditPage() {
   return (
     <div className="animate-rise space-y-5">
       <PageHeader
-        eyebrow="Integrity"
         title="Audit trail"
         description="Every authentication, incident change and evidence access is chained with SHA-256. Verification recomputes the full chain from genesis."
+        badge={<EnglishOnlyBadge />}
         actions={
           <>
             <button type="button" onClick={() => setReloadKey((value) => value + 1)} className={btnGhost} disabled={loading}>
@@ -162,10 +171,6 @@ export default function AuditPage() {
           </>
         }
       />
-
-      <p className="rounded-lg border border-line/70 bg-surface/40 px-3.5 py-2.5 text-[10.5px] leading-relaxed text-muted">
-        {t("common.englishOnly")}
-      </p>
 
       {error && <Notice>{error}</Notice>}
       {notice && (
@@ -220,6 +225,28 @@ export default function AuditPage() {
                   )}
                 </dl>
               </>
+            ) : verificationError ? (
+              <div className="flex flex-col items-start gap-3 py-2">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-danger/25 bg-danger/10 text-danger">
+                    <AlertTriangleIcon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold text-text">Verification unavailable</p>
+                    <p className="mt-0.5 text-[11px] leading-relaxed text-muted">
+                      {verificationError}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setReloadKey((value) => value + 1)}
+                  className={btnGhost}
+                >
+                  <RefreshIcon className="h-4 w-4" />
+                  Try again
+                </button>
+              </div>
             ) : (
               <div className="flex items-center gap-2 py-6 text-xs text-muted">
                 <Spinner className="text-brand" />
@@ -230,7 +257,7 @@ export default function AuditPage() {
         </Card>
 
         <Card>
-          <CardHeader title="How the chain works" description="Design properties you can demonstrate live." />
+          <CardHeader title="What verification checks" description="A single altered, removed or reordered entry breaks the chain." />
           <ul className="divide-y divide-line/50">
             <li className="px-5 py-3 text-[10.5px] leading-relaxed text-muted">
               <span className="font-semibold text-text">Genesis link.</span> The first entry points at 64 zeroes. Every later entry stores the previous entry hash.
@@ -239,7 +266,7 @@ export default function AuditPage() {
               <span className="font-semibold text-text">Content binding.</span> The hash covers the actor, action, resource, detail, timestamp and previous hash.
             </li>
             <li className="px-5 py-3 text-[10.5px] leading-relaxed text-muted">
-              <span className="font-semibold text-text">Append-only API.</span> There is no edit or delete endpoint. New facts are new entries.
+              <span className="font-semibold text-text">Append-only.</span> Entries are written once; corrections are recorded as new entries, never edits.
             </li>
             <li className="px-5 py-3 text-[10.5px] leading-relaxed text-muted">
               <span className="font-semibold text-text">Evidence access.</span> Every download writes both a timeline event and an audit entry.
@@ -331,10 +358,26 @@ export default function AuditPage() {
               </tbody>
             </table>
           </div>
+        ) : error ? (
+          <ErrorState
+            title="Audit entries unavailable"
+            body={error}
+            action={
+              <button
+                type="button"
+                onClick={() => setReloadKey((value) => value + 1)}
+                className={btnGhost}
+              >
+                <RefreshIcon className="h-4 w-4" />
+                Try again
+              </button>
+            }
+          />
         ) : (
           <EmptyState title="No audit entries match this filter" body="Clear the action filter to see the full organisation history." />
         )}
 
+        {!(error && !data) && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line/70 px-4 py-3">
           <p className="text-[10.5px] text-muted/80">
             {total} matching entr{total === 1 ? "y" : "ies"} · page {page} of {totalPages}
@@ -360,6 +403,7 @@ export default function AuditPage() {
             </button>
           </div>
         </div>
+        )}
       </Card>
     </div>
   );
