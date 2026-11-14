@@ -464,6 +464,15 @@ Full results: [AXE_REPORT.md](./AXE_REPORT.md).
 - axe cannot resolve contrast over the decorative grid, so a manual composite
   check covered 360 text/background pairs; every pair passes AA. Primary labels
   on the brand gradient measure 5.45:1 to 11.09:1.
-- No product changes were required. P2 items stay deferred until after the
-  final screenshots.
+- No product changes were required. The remaining P2 items stay deferred until
+  after submission.
+
+## 13. Final screenshot set
+
+The final screenshots were regenerated on 14 November 2026 from the released
+build and the seeded synthetic tenant: 22 images covering every screen at
+1440 × 1000 and five mobile screens at 390 × 844, plus Hausa, Yorùbá and Igbo
+interfaces and the open mobile drawer. They live in
+[`docs/demo/screenshots/`](../demo/screenshots/) with the `final-` prefix and are
+linked from [`docs/README.md`](../README.md). Capture ran with 0 console errors.
 
