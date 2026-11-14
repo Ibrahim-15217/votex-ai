@@ -431,3 +431,21 @@ Verification for this batch:
 - Responsive sweep: 320/360/390/768/1024/1280/1440/1920 across all eight routes, 200% zoom, three locales and the reporter role — 0 px page overflow and 0 console errors.
 - Copy sweep: no banned build-language string on any route; badge present where expected; forgot-password notice confirmed.
 
+---
+
+## 12. Accessibility pass
+
+Full results: [AXE_REPORT.md](./AXE_REPORT.md).
+
+- axe-core 4.10.2 (WCAG 2.0/2.1 A + AA plus best practice) across nine screens at
+  1280 × 900 and 390 × 844: **0 violations, 0 console errors** in 18 loads.
+- Four interactive states (mobile navigation drawer, new assessment form,
+  exercise task list, indicator detail): **0 violations**.
+- Harness control: an injected unlabelled image was correctly reported as
+  `image-alt`, confirming the run was not a false clean.
+- axe cannot resolve contrast over the decorative grid, so a manual composite
+  check covered 360 text/background pairs; every pair passes AA. Primary labels
+  on the brand gradient measure 5.45:1 to 11.09:1.
+- No product changes were required. P2 items stay deferred until after the
+  final screenshots.
+
