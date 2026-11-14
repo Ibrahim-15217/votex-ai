@@ -2,10 +2,10 @@
 
 | Field | Detail |
 | --- | --- |
-| **Status** | Draft v0.4 — Phase 5 resilience module ready; three-minute timing unchanged |
+| **Status** | Draft v0.5 — copy, accounts and screens aligned to the released build |
 | **Target length** | 3:00 maximum |
 | **Audience** | Track 4 judges and grand-prize panel |
-| **Demo data** | Synthetic only |
+| **Demo data** | Synthetic only — Votex Demo Authority tenant |
 | **Owner** | Product lead |
 
 > Win condition: five memorable moments — explainable triage, correlation, privacy suppression, tamper detection and inclusive access. Do not tour features.
@@ -16,19 +16,30 @@
 
 Run this 15 minutes before presenting.
 
-- [ ] `docker compose up` is healthy, or the local fallback is running.
-- [ ] Seed command completed; demo accounts can sign in. The enriched seed already contains overlapping indicators, so correlation is visible without live data entry.
-- [ ] Browser zoom at 100%; notifications silenced.
-- [ ] Synthetic incident with a shared indicator is ready — open `VX-2026-A10002` and confirm the **Linked incidents** panel shows three cases.
-- [ ] National dashboard shows the PVC URL/domain at 5 linked incidents and a suppressed small cell.
-- [ ] Audit verification command works.
-- [ ] Hausa language switch works.
-- [ ] Keyboard-only flow works: `Tab` to a language target, `Enter`, then `Tab` through the intake and `Enter` to submit.
-- [ ] Four locales visible on sign-in: English, Hausa, Yorùbá, Igbo.
-- [ ] Mobile viewport renders without horizontal scrolling.
-- [ ] Resilience workspace shows latest score **70.8 (resilient)**, 9/13 open findings and one completed exercise.
+- [ ] API and frontend healthy (`docker compose up`, or the local fallback: API on `127.0.0.1:8000`, Vite on `localhost:5173`). `/api/v1/health` returns 200 and `/api/v1/ready` reports `resilience-and-simulation`.
+- [ ] Seed complete; every demo account signs in. Accounts on the sign-in card: `admin@votex.demo`, `analyst@votex.demo`, `reporter@votex.demo`, `analyst@inec.demo`. Shared password `VotexDemo!23`.
+- [ ] Browser zoom at 100%; notifications silenced; one tab only.
+- [ ] Signed in as `analyst@votex.demo`: open `VX-2026-A10002` and confirm **Linked incidents** lists three cases — `A10007`, `A10008`, `A10009`.
+- [ ] Signed in as `admin@votex.demo`: **Threat dashboards → National picture** shows the PVC URL and domain at **5 links** across **2 organisations**, and the suppression banner reports how many small cells were withheld.
+- [ ] **Audit trail → Verify chain** shows *Chain verified* and the number of entries checked.
+- [ ] Isolation URL copied (see below).
+- [ ] Hausa switch works; the keyboard path to Igbo works (`Tab` to the Igbo target, `Enter`).
+- [ ] Four language targets visible in the header: `EN`, `HA`, `YO`, `IG`.
+- [ ] Mobile viewport at 390 × 844 renders without horizontal scrolling.
+- [ ] Resilience workspace shows latest score **70.8 (resilient)**, **9 of 13** findings open and **1 completed** exercise.
 - [ ] Screen recording available as fallback.
 - [ ] Back-up laptop and hotspot tested.
+
+### Isolation URL (prepare during pre-flight)
+
+1. Sign in as `analyst@inec.demo` and open `VX-2026-B10001`.
+2. Copy the full address-bar URL into a scratch note.
+3. Sign out and sign back in as `admin@votex.demo`.
+4. Keep the URL for 2:20. Opening it in the demo shows **Incident not found** with the tenant-isolation explanation.
+
+### Reset between runs
+
+Stop the API, delete `backend/votex.db`, restart, and the seed recreates the same tenant, incidents and scores. Every sign-in adds audit entries, so reseed before a recorded run to keep the chain tidy.
 
 ### Fallback order
 
@@ -49,9 +60,9 @@ Never debug live. Switch to the next fallback immediately.
 
 > "In an election period, a fake verification portal can reach thousands of staff and voters in minutes. Reports arrive through WhatsApp, email and phone calls. Nobody can see the pattern, and nobody can prove the evidence was not changed. Votex AI coordinates that response."
 
-**Show:** Login screen with the Track 4 framing and four capability cards.
+**Show:** The sign-in screen — "Electoral cybersecurity, coordinated." — with the three capability cards (explainable triage, integrity by design, privacy preserved) and the live telemetry strip: reports, indicators linked and audit-chain entries.
 
-**Do not:** explain the architecture.
+**Do not:** explain the architecture or read the capability cards aloud.
 
 ---
 
@@ -63,17 +74,17 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Sign in as `reporter@inec.demo`.
-2. Open **Report an incident**.
-3. Paste the synthetic message and URL.
-4. Upload the synthetic screenshot.
-5. Submit.
-
-**Show:** Generated reference and recorded SHA-256 evidence hash.
+1. Sign in as `reporter@votex.demo`.
+2. Open **Report incident**; the page itself is titled **Report a threat**.
+3. Give the report a short title, set **Threat category** to *Phishing / credential theft*, **How it reached you** to *WhatsApp*, and paste the synthetic URL into **Reported URL**.
+4. Select **Submit report**.
+5. On the new case, open **Evidence vault**, use **Attach evidence**, select **Upload and hash**, and point to the recorded SHA-256 hash.
 
 **Say:**
 
 > "The evidence hash is recorded at upload, so any later change is detectable."
+
+*Fallback:* if typing is slow, open the seeded case `VX-2026-A10004` and show its evidence hash instead.
 
 ---
 
@@ -85,14 +96,14 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Sign in as `analyst@inec.demo` (or switch role).
-2. Open the new incident.
-3. Show the score gauge, band and reasons:
+1. Sign out and sign in as `analyst@votex.demo`.
+2. Open `VX-2026-A10001` (*Phishing email impersonating the Commission Chairman*): it already has a completed analysis. You can also use the report just submitted — triage runs automatically when a report is created.
+3. Show **Explainable AI analysis**: the gauge, the band and **Why this score**:
    - lookalike domain,
    - HTTP rather than HTTPS,
    - credential request,
    - urgency language.
-4. Point to the model and ruleset version.
+4. Point to the model and ruleset versions, and the **AI triage** panel in **Triage controls**.
 
 **Say:**
 
@@ -110,11 +121,11 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Assign the incident to yourself or a colleague.
-2. Record a response action — for example, "warning issued to ward officers".
-3. Move the incident to **Investigating**.
-4. Open a second synthetic report that shares the same domain.
-5. Show **Linked incidents**. The seeded cases `VX-2026-A10007`, `A10008` and `A10009` all reuse the portal from `A10002`.
+1. Open `VX-2026-A10002` (*Fake voter registration portal targeting first-time registrants*), currently **Under review**.
+2. In **Triage controls**, set **Assigned analyst** to Tunde Balogun.
+3. In **Record a response action**, choose *Public or staff warning issued*, note "warning issued to ward officers", and select **Record action**.
+4. Move the case to **Investigating** with the **Lifecycle** selector (only valid next stages are offered).
+5. Show **Linked incidents**: `A10007`, `A10008` and `A10009` all reuse the portal.
 
 **Say:**
 
@@ -132,10 +143,11 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Open the **National dashboard**.
-2. Show aggregate trends.
-3. Point to a suppressed cell labelled with the k ≥ 5 rule.
-4. Show the PVC URL/domain in **Surging indicators** at exactly 5 linked incidents across 2 organisations.
+1. Switch to `admin@votex.demo` and open **Threat dashboards**.
+2. Select **National picture** — labelled *Admin only · k ≥ 5*.
+3. Read the suppression banner aloud: "k ≥ 5 suppression active. *N* small cells hidden before the response reaches this browser."
+4. Point to categories, channels, states and the pipeline reading **K < 5**.
+5. Show **Surging indicators**: the PVC URL and domain at exactly **5 links** across **2 organisations**.
 
 **Say:**
 
@@ -153,10 +165,10 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Run the audit verification command or click **Verify chain**.
-2. Show the success result.
-3. Tamper with a test row in the seeded environment (prepared beforehand) and re-run; show the first broken entry.
-4. Attempt to open Organisation B's incident while signed in to Organisation A; show denial.
+1. Open **Audit trail** and select **Verify chain**.
+2. Show *Chain verified*, the entries checked and the latest entry hash.
+3. Run the prepared tamper (an edited test row) and verify again; show the first broken entry.
+4. Paste the isolation URL copied in pre-flight while signed in to Votex Demo Authority; show **Incident not found** and the line "Records outside your organisation … are hidden by design."
 
 **Say:**
 
@@ -174,10 +186,10 @@ Never debug live. Switch to the next fallback immediately.
 
 **Do:**
 
-1. Switch the interface to **Hausa** with the header switcher, then switch to **Igbo** using the keyboard only: `Tab` to the **Igbo** target and press `Enter`.
-2. Show the intake heading change to **“Kọọ ihe iyi egwu”**.
-3. With the keyboard alone, move through title and description, then submit with `Enter`; show the Igbo success banner **“E zipuru akụkọ”** and the generated reference.
-4. Point to the visible English-only notice on analyst screens so the localisation boundary is honest.
+1. Use the header switcher (`EN` `HA` `YO` `IG`) to switch to Hausa and show the intake heading **Kai rahoton barazana**.
+2. Switch to Igbo with the keyboard only: `Tab` to the **Igbo** target and press `Enter`. The heading becomes **Kọọ ihe iyi egwu**.
+3. With the keyboard alone, move through title and description, then submit with `Enter`; show the Igbo success banner **E zipuru akụkọ** and the generated reference.
+4. On the resulting case, point to the compact **English · case data** badge: analyst-only modules stay English-only, and the interface says so.
 
 **Say:**
 
@@ -196,6 +208,7 @@ Never debug live. Switch to the next fallback immediately.
 | How accurate is the AI? | Measured precision, recall and F1 on a held-out synthetic test set are published in the model card, including failure cases. |
 | What if the model is wrong? | The analyst sees reasons, can override, and every action is audited. The model never closes an incident. |
 | How is privacy protected? | Tenant isolation, minimal fields, no raw text in national views and k ≥ 5 suppression in the query layer. |
+| Why did the INEC analyst get "Incident not found"? | Cross-tenant reads return 404 by design, so another organisation's case cannot even be confirmed to exist. |
 | Can the audit log be rewritten? | The hash chain makes tampering evident. Production would add external anchoring and restricted database roles. |
 | How does this scale? | Stateless API, PostgreSQL, object storage and a worker boundary. The MVP avoids infrastructure that is not justified. |
 | Why four languages? | Reports come from staff, observers and voters with different first languages. English, Hausa, Yoruba and Igbo cover the demo audience; dictionaries are typed so an untranslated key fails the build. |
@@ -215,14 +228,35 @@ Never debug live. Switch to the next fallback immediately.
 - Re-run the entire demo from a clean seed before submission.
 - Record the final run and watch it without commentary to find gaps.
 
-## 5. Evidence to capture
+---
 
-- Screenshot of the explainable analysis.
-- Screenshot of related incidents.
-- Screenshot of a suppressed small cell.
-- Screenshot of audit verification success and tamper detection.
-- Screenshot of the Hausa interface.
-- Screenshot of the Igbo keyboard-only intake and localised success banner.
-- Screenshot of the mobile intake and queue.
-- Terminal output of the test suite.
-- Fresh-clone start and seed output.
+## 5. Recording cue sheet
+
+Use this to line the narration up with what is on screen. All reference images
+are in [`screenshots/`](./screenshots/).
+
+| Time | What is on screen | Action | Reference |
+| --- | --- | --- | --- |
+| 0:00 | Sign-in | No clicks; let the capability cards and telemetry settle | `final-login-1440x1000.png` |
+| 0:20 | Report a threat | Type the report, submit, then open **Evidence vault** | `final-report-1440x1000.png` |
+| 0:35 | New case | Point to the reference, the SHA-256 hash and the timeline | `final-incident-detail-1440x1000.png` |
+| 0:50 | Explainable AI panel | Scroll from the score to **Why this score** | `final-incident-detail-1440x1000.png` |
+| 1:20 | Triage controls on `A10002` | Assign, record a response action, move to **Investigating** | `final-incident-detail-1440x1000.png` |
+| 1:30 | Linked incidents | Show the three linked cases below the triage panel | `final-incident-detail-1440x1000.png` |
+| 1:50 | National picture | Select the tab, read the suppression banner, show `K < 5` cells | `final-dashboards-national-1440x1000.png` |
+| 2:05 | Surging indicators | Point to the PVC URL: 5 links, 2 organisations | `final-dashboards-national-1440x1000.png` |
+| 2:20 | Audit trail | **Verify chain**; show the intact result and the tamper result | `final-audit-1440x1000.png` |
+| 2:30 | Cross-tenant read | Paste the prepared URL; show **Incident not found** | capture while recording |
+| 2:40 | Igbo intake | Keyboard-only language switch and submission | `final-report-igbo-1440x1000.png` |
+| 2:50 | Igbo success | Show **E zipuru akụkọ** and the **English · case data** badge | capture while recording |
+
+---
+
+## 6. Evidence to capture
+
+- Explainable analysis, related incidents and suppression: `final-incident-detail-1440x1000.png`, `final-dashboards-national-1440x1000.png`.
+- Audit verification success and tamper detection: `final-audit-1440x1000.png` plus the tamper run captured during recording.
+- Hausa interface: `final-login-hausa-1440x1000.png`, `final-overview-hausa-1440x1000.png`.
+- Igbo keyboard-only intake and localised success: `final-report-igbo-1440x1000.png` plus the success screen.
+- Mobile intake and queue: `final-report-mobile-390x844.png`, `final-incidents-mobile-390x844.png`.
+- Terminal output of the test suite and the fresh-clone start and seed output.
