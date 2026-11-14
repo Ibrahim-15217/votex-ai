@@ -32,6 +32,9 @@ Each screen was loaded as the analyst account at **1280 × 900** and
 **0 violations** across all 18 page loads and all four interactive states.
 **0 console errors** in the same runs.
 
+The suite was re-run after the later copy, date and keyboard-scroll changes
+(F-07, F-14, F-15) with the same result: 0 violations, 0 console errors.
+
 No critical or serious issues were found, so this pass required no product
 changes.
 

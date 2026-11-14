@@ -73,6 +73,13 @@ SEVERITY_LABELS = {
     "high_risk": "High risk",
     "unclassified": "Unclassified",
 }
+KIND_LABELS = {
+    "url": "URL",
+    "domain": "domain",
+    "ipv4": "IPv4",
+    "sha256": "SHA-256",
+    "md5": "MD5",
+}
 SEVERITY_ORDER = ("high_risk", "suspicious", "benign", "unclassified")
 STATUS_ORDER = tuple(STATUS_LABELS)
 CATEGORY_ORDER = tuple(CATEGORY_LABELS)
@@ -176,13 +183,16 @@ def sync_incident_indicators(
 
     if new_links:
         kinds = Counter(item.kind for item in extracted)
-        kind_summary = ", ".join(f"{count} {kind}" for kind, count in kinds.items())
+        kind_summary = ", ".join(
+            f"{count} {KIND_LABELS.get(kind, kind)}" for kind, count in kinds.items()
+        )
+        plural = "" if new_links == 1 else "s"
         db.add(
             IncidentEvent(
                 incident_id=incident.id,
                 actor_id=actor.id if actor else None,
                 event_type="indicators_linked",
-                message=f"Correlation linked {new_links} indicator(s): {kind_summary}.",
+                message=f"Correlation linked {new_links} indicator{plural}: {kind_summary}.",
                 event_metadata={
                     "indicator_count": new_links,
                     "kinds": dict(kinds),

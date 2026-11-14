@@ -20,7 +20,12 @@ export function IncidentTable({
 
   return (
     <>
-      <div className="hidden overflow-x-auto md:block">
+      <div
+        className="hidden overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 md:block"
+        tabIndex={0}
+        role="region"
+        aria-label={t("queue.title")}
+      >
         <table className="w-full min-w-[720px] text-left">
           <thead>
             <tr className="border-b border-line/70 text-[9.5px] uppercase tracking-[0.14em] text-muted">

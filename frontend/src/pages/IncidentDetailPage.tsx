@@ -364,7 +364,10 @@ export default function IncidentDetailPage() {
           <Meta label="Opened" value={formatDateTime(incident.created_at)} />
           <Meta label="Channel" value={channelLabel(incident.channel)} />
           <Meta label="State" value={incident.state ?? "Not specified"} />
-          <Meta label="Classification" value={incident.classification ? humanise(incident.classification) : "Pending"} />
+          <Meta
+            label="Classification"
+            value={incident.classification ? categoryLabel(incident.classification) : "Pending"}
+          />
           <Meta
             label="Reported URL"
             value={incident.reported_url ?? "None supplied"}

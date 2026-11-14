@@ -12,6 +12,7 @@ import en, { type TranslationKey } from "./locales/en";
 import ha from "./locales/ha";
 import yo from "./locales/yo";
 import ig from "./locales/ig";
+import { setFormatLocale } from "./format";
 
 export type Lang = "en" | "ha" | "yo" | "ig";
 
@@ -112,6 +113,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     () => ({ lang, setLang, t, languages }),
     [lang, setLang, t],
   );
+
+  // Date helpers are plain functions, so keep their locale in step with the
+  // provider before children render, including the first paint.
+  setFormatLocale(localeTag(lang));
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

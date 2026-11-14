@@ -41,15 +41,51 @@ export function channelLabel(value: string): string {
   return CHANNEL_LABELS[value] ?? humanise(value);
 }
 
+const WORD_LABELS: Record<string, string> = {
+  ai: "AI",
+  api: "API",
+  csv: "CSV",
+  id: "ID",
+  inec: "INEC",
+  ip: "IP",
+  ipv4: "IPv4",
+  ipv6: "IPv6",
+  md5: "MD5",
+  pvc: "PVC",
+  rbac: "RBAC",
+  sha256: "SHA-256",
+  sms: "SMS",
+  tls: "TLS",
+  url: "URL",
+  urls: "URLs",
+  whatsapp: "WhatsApp",
+};
+
 export function humanise(value: string): string {
-  return value.replace(/[_-]+/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return value
+    .replace(/[_-]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .map((word) => {
+      const label = WORD_LABELS[word.toLowerCase()];
+      if (label) return label;
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+}
+
+/** Date formatting follows the interface language, not just English. */
+let activeLocale = "en-GB";
+
+export function setFormatLocale(locale: string): void {
+  activeLocale = locale;
 }
 
 export function formatDateTime(value: string | null | undefined): string {
   if (!value) return "—";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
-  return date.toLocaleString("en-GB", {
+  return date.toLocaleString(activeLocale, {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -125,14 +161,14 @@ export function formatShortDate(value: string | null | undefined): string {
   if (!value) return "—";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
-  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  return date.toLocaleDateString(activeLocale, { day: "numeric", month: "short" });
 }
 
 export function formatDay(value: string | null | undefined): string {
   if (!value) return "—";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
-  return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  return date.toLocaleDateString(activeLocale, { day: "2-digit", month: "short", year: "numeric" });
 }
 
 export function formatHours(hours: number | null | undefined): string {

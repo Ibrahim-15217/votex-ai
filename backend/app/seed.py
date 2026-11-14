@@ -244,7 +244,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Whatsapp.",
+                "message": "Incident reported through WhatsApp.",
             }
         ],
     },
@@ -274,7 +274,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Sms.",
+                "message": "Incident reported through SMS.",
             },
             {
                 "type": "status_changed",
@@ -484,7 +484,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Whatsapp.",
+                "message": "Incident reported through WhatsApp.",
             },
             {
                 "type": "status_changed",
@@ -590,7 +590,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Sms.",
+                "message": "Incident reported through SMS.",
             }
         ],
     },
@@ -694,7 +694,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Whatsapp.",
+                "message": "Incident reported through WhatsApp.",
             },
             {
                 "type": "status_changed",
@@ -796,7 +796,7 @@ INCIDENTS = [
                 "type": "created",
                 "actor": "reporter",
                 "minutes": 0,
-                "message": "Incident reported through Sms.",
+                "message": "Incident reported through SMS.",
             },
             {
                 "type": "status_changed",

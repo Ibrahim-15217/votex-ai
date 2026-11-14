@@ -42,10 +42,29 @@ LIST_OPTIONS = (
 )
 
 
-def humanise(value: str) -> str:
-    """Turn a machine value into a readable label."""
+WORD_LABELS = {
+    "ai": "AI",
+    "api": "API",
+    "id": "ID",
+    "ip": "IP",
+    "ipv4": "IPv4",
+    "ipv6": "IPv6",
+    "md5": "MD5",
+    "sha256": "SHA-256",
+    "sms": "SMS",
+    "url": "URL",
+    "urls": "URLs",
+    "whatsapp": "WhatsApp",
+}
 
-    return value.replace("_", " ").replace("-", " ").strip().capitalize()
+
+def humanise(value: str) -> str:
+    """Turn a machine value into a readable label, keeping acronyms intact."""
+
+    words = value.replace("_", " ").replace("-", " ").split()
+    return " ".join(
+        WORD_LABELS.get(word.lower(), word[:1].upper() + word[1:]) for word in words
+    )
 
 
 def generate_reference(db: Session) -> str:

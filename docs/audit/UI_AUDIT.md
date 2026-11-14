@@ -420,7 +420,10 @@ after the axe pass and final screenshots.
 | F-06 | Fixed | The sticky bar is now an organisation → page breadcrumb; each page owns a single H1 and description. |
 | F-11 | Fixed | English-only disclosure is a compact badge on audit, intelligence, dashboards, resilience and incident detail. |
 | F-12 | Fixed | "Query layer", "magic bytes", "Integrity footer" and "Design properties you can demonstrate live" replaced with product nouns. |
-| F-07 to F-10, F-13 to F-18 | Deferred | Risk thresholds, unified stat tiles, empty-state icon, button scale, manual refresh, keyboard table scrolling, locale dates and the remaining consistency items. |
+| F-07 | Fixed | `humanise()` is acronym-aware on both sides of the API: `AI`, `SMS`, `WhatsApp`, `IPv4`, `SHA-256`, `URL` and `MD5` now render identically to the dictionary labels. Incident timelines, audit detail summaries and seeded messages were corrected. |
+| F-14 | Fixed | The incident table and audit table scroll containers are focusable `role="region"` landmarks with an accessible name and a visible focus ring, so the tables can be scrolled with the keyboard. |
+| F-15 | Fixed | `formatDateTime`, `formatShortDate` and `formatDay` follow the selected interface language instead of being hard-coded to `en-GB`. |
+| F-08 to F-10, F-13, F-16 to F-18 | Deferred | Risk thresholds, unified stat tiles, empty-state icon, button scale, manual refresh and the remaining consistency items. |
 
 Verification for this batch:
 
@@ -430,6 +433,21 @@ Verification for this batch:
 - Boot-failure probe: token survives a fully blocked API, the unavailable screen appears, retry recovers the console.
 - Responsive sweep: 320/360/390/768/1024/1280/1440/1920 across all eight routes, 200% zoom, three locales and the reporter role — 0 px page overflow and 0 console errors.
 - Copy sweep: no banned build-language string on any route; badge present where expected; forgot-password notice confirmed.
+
+Verification for the quick P2 batch (F-07, F-14, F-15):
+
+- API messages now read "Incident reported through SMS.", "Incident reported
+  through WhatsApp." and "Correlation linked 3 indicators: 1 URL, 1 domain, 1
+  IPv4." — no `Sms`, `Whatsapp` or `Ipv4` casing remains on any screen.
+- Both table regions are reachable by Tab (`tabIndex=0`, labelled `role="region"`);
+  at 1024 px the audit table reports overflow and ArrowRight scrolls it
+  (`scrollLeft` 0 → 40).
+- Date format follows the interface language: English renders `07 Nov 2026`,
+  Hausa and Yoruba render `Nov 07, 2026` with 12-hour clocks.
+- `pytest -q`: 55 passed. `npm run build`: TypeScript clean; 413.96 kB JS
+  (117.57 kB gzip), 42.09 kB CSS (8.28 kB gzip).
+- axe re-run after the change: 18 page loads plus 4 interactive states, still
+  0 violations and 0 console errors.
 
 ---
 

@@ -311,7 +311,12 @@ export default function AuditPage() {
             ))}
           </div>
         ) : data && data.items.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div
+            className="overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+            tabIndex={0}
+            role="region"
+            aria-label="Audit entries"
+          >
             <table className="w-full min-w-[860px] text-left">
               <thead>
                 <tr className="border-b border-line/70 text-[9.5px] uppercase tracking-[0.14em] text-muted/80">
