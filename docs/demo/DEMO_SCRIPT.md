@@ -242,7 +242,7 @@ are in [`screenshots/`](./screenshots/).
 | 0:35 | New case | Point to the reference, the SHA-256 hash and the timeline | `final-incident-detail-1440x1000.png` |
 | 0:50 | Explainable AI panel | Scroll from the score to **Why this score** | `final-incident-detail-1440x1000.png` |
 | 1:20 | Triage controls on `A10002` | Assign, record a response action, move to **Investigating** | `final-incident-detail-1440x1000.png` |
-| 1:30 | Linked incidents | Show the three linked cases below the triage panel | `final-incident-detail-1440x1000.png` |
+| 1:30 | Linked incidents on `A10002` | Show the three linked cases below the triage panel | `final-linked-incidents-1440x1000.png` |
 | 1:50 | National picture | Select the tab, read the suppression banner, show `K < 5` cells | `final-dashboards-national-1440x1000.png` |
 | 2:05 | Surging indicators | Point to the PVC URL: 5 links, 2 organisations | `final-dashboards-national-1440x1000.png` |
 | 2:20 | Audit trail | **Verify chain**; show the intact result and the tamper result | `final-audit-1440x1000.png` |
@@ -254,7 +254,8 @@ are in [`screenshots/`](./screenshots/).
 
 ## 6. Evidence to capture
 
-- Explainable analysis, related incidents and suppression: `final-incident-detail-1440x1000.png`, `final-dashboards-national-1440x1000.png`.
+- Explainable analysis and suppression: `final-incident-detail-1440x1000.png`, `final-dashboards-national-1440x1000.png`.
+- Correlation evidence: `final-linked-incidents-1440x1000.png` (three cases on `A10002`).
 - Audit verification success and tamper detection: `final-audit-1440x1000.png` plus the tamper run captured during recording.
 - Hausa interface: `final-login-hausa-1440x1000.png`, `final-overview-hausa-1440x1000.png`.
 - Igbo keyboard-only intake and localised success: `final-report-igbo-1440x1000.png` plus the success screen.

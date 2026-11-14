@@ -28,7 +28,7 @@ Captured from the finished prototype with the seeded synthetic demo tenant, at
 - Sign in: [desktop](./demo/screenshots/final-login-1440x1000.png) · [Hausa](./demo/screenshots/final-login-hausa-1440x1000.png)
 - Operations overview: [desktop](./demo/screenshots/final-overview-1440x1000.png) · [Hausa](./demo/screenshots/final-overview-hausa-1440x1000.png) · [mobile](./demo/screenshots/final-overview-mobile-390x844.png) · [mobile navigation](./demo/screenshots/final-overview-mobile-nav-390x844.png)
 - Incident queue: [desktop](./demo/screenshots/final-incidents-1440x1000.png) · [Yorùbá](./demo/screenshots/final-incidents-yoruba-1440x1000.png) · [mobile](./demo/screenshots/final-incidents-mobile-390x844.png)
-- Incident detail: [desktop](./demo/screenshots/final-incident-detail-1440x1000.png) · [mobile](./demo/screenshots/final-incident-detail-mobile-390x844.png)
+- Incident detail: [desktop](./demo/screenshots/final-incident-detail-1440x1000.png) · [linked incidents](./demo/screenshots/final-linked-incidents-1440x1000.png) · [mobile](./demo/screenshots/final-incident-detail-mobile-390x844.png)
 - Report a threat: [desktop](./demo/screenshots/final-report-1440x1000.png) · [Igbo](./demo/screenshots/final-report-igbo-1440x1000.png) · [mobile](./demo/screenshots/final-report-mobile-390x844.png)
 - [Indicator intelligence](./demo/screenshots/final-intelligence-1440x1000.png)
 - Dashboards: [organisation](./demo/screenshots/final-dashboards-organisation-1440x1000.png) · [national with suppression](./demo/screenshots/final-dashboards-national-1440x1000.png)
